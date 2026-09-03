@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Advanced Policy Upload Form</title>
+<style>
+body { font-family: Arial, sans-serif; padding: 20px; background: #f9f9f9; }
+h2 { margin-bottom: 20px; color: #333; }
+.info { margin-bottom: 12px; }
+label { display: block; margin-bottom: 4px; font-weight: bold; color: #555; }
+input, select, button { padding: 8px; width: 100%; max-width: 500px; margin-bottom: 8px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; }
+button { cursor: pointer; background-color: #007BFF; color: white; border: none; transition: 0.3s; }
+button:hover { background-color: #0056b3; }
+#formContainer { background: white; padding: 20px; border-radius: 10px; max-width: 900px; margin: auto; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+</style>
+</head>
+<body>
+
+<div id="formContainer">
+<h2>Advanced Policy Upload Form</h2>
+
+<form method="POST" enctype="multipart/form-data">
+
+<!-- Step 1: Insurance Type -->
+<div class="info">
+    <label>Insurance Type</label>
+    <select id="insurance_type" required>
+        <option value="">Select</option>
+        <option value="Life">Life Insurance</option>
+        <option value="General">General Insurance</option>
+    </select>
+</div>
+
+<!-- Step 2: Product Category -->
+<div class="info" id="categoryDiv" style="display:none;">
+    <label>Product Category</label>
+    <select id="product_category" required>
+        <option value="">Select</option>
+    </select>
+</div>
+
+<!-- Step 3: Policy Plan -->
+<div class="info" id="planDiv" style="display:none;">
+    <label>Policy Plan</label>
+    <select id="policy_plan" required>
+        <option value="">Select</option>
+    </select>
+</div>
+
+<!-- Step 4: Plan Name -->
+<div class="info" id="planNameDiv">
+    <label>Plan Name</label>
+    <input type="text" name="plan_name">
+</div>
+
+<!-- Step 5: Policy Type -->
+<div class="info" id="policyTypeDiv">
+    <label>Policy Type</label>
+    <input type="text" name="policy_type">
+</div>
+
+<!-- Login Details -->
+<div class="info"><label>Login Date</label><input type="date" name="login_date" required></div>
+<div class="info"><label>Login Month</label><input type="month" name="login_month" required></div>
+
+<!-- Insurer Company -->
+<div class="info" id="companyDiv" style="display:none;">
+    <label>Insurer Company Name</label>
+    <select id="insurer_company" name="insurer_company" required>
+        <option value="">Select</option>
+    </select>
+</div>
+
+<!-- Application & Policy -->
+<div class="info"><label>Application No</label><input type="text" name="application_no" required></div>
+<div class="info"><label>Policy Number</label><input type="text" name="policy_number" required></div>
+
+<!-- Policy Dates -->
+<div class="info"><label>Policy Start Date</label><input type="date" name="policy_start_date" required></div>
+<div class="info"><label>Policy Issuance Month</label><input type="month" name="policy_issuance_month" required></div>
+<div class="info"><label>Policy End Date</label><input type="date" name="policy_end_date" required></div>
+
+<!-- Hierarchy -->
+<div class="info"><label>ARH/CH Name</label><input type="text" name="arh_ch_name" required></div>
+<div class="info"><label>BM Name</label><input type="text" name="bm_name" required></div>
+<div class="info"><label>BM Location</label><input type="text" name="bm_location" required></div>
+<div class="info"><label>SM Name</label><input type="text" name="sm_name" required></div>
+<div class="info"><label>POSP Name and Code</label><input type="text" name="posp_name_code" required></div>
+
+<!-- Proposer & Insured -->
+<div class="info"><label>Proposer Name</label><input type="text" name="proposer_name" required></div>
+<div class="info"><label>Insured Name</label><input type="text" name="insured_name" required></div>
+
+<!-- Life Insurance Fields -->
+<div id="lifeFields" style="display:none;">
+    <div class="info"><label>Sum Assured / Insured</label><input type="number" name="sum_assured"></div>
+    <div class="info"><label>Tenure / Policy Term</label><input type="number" name="policy_term"></div>
+</div>
+
+<!-- Motor-specific Fields -->
+<div id="motorFields" style="display:none;">
+    <div class="info"><label>Vehicle No / Reg-No</label><input type="text" name="vehicle_no"></div>
+    <div class="info"><label>Make</label><input type="text" name="make"></div>
+    <div class="info"><label>Model</label><input type="text" name="model"></div>
+    <div class="info"><label>Fuel Type</label><input type="text" name="fuel_type"></div>
+    <div class="info"><label>Variant</label><input type="text" name="variant"></div>
+    <div class="info"><label>Year Of Manufacture</label><input type="number" name="year_of_manufacture"></div>
+    <div class="info"><label>Cubic Capacity (CC)</label><input type="number" name="cubic_capacity"></div>
+    <div class="info"><label>GVW (Gross Vehicle Weight)</label><input type="number" name="gvw"></div>
+    <div class="info"><label>NCB</label><input type="text" name="ncb"></div>
+    <div class="info"><label>OD Premium Amount</label><input type="number" name="od_premium_amount"></div>
+    <div class="info"><label>TP Premium Amount</label><input type="number" name="tp_premium_amount"></div>
+    <div class="info"><label>IDV / Coverage Amount</label><input type="number" name="idv"></div>
+</div>
+
+<!-- Other General Insurance Fields -->
+<div id="generalFields" style="display:none;">
+    <div class="info"><label>Coverage Amount</label><input type="number" name="coverage_amount"></div>
+</div>
+
+<!-- Payment -->
+<div class="info"><label>Premium Payment Term</label><input type="text" name="premium_payment_term" required></div>
+<div class="info"><label>Mode Of Payment</label><input type="text" name="mode_of_payment" required></div>
+<div class="info"><label>Payment Method</label><input type="text" name="payment_method" required></div>
+<div class="info"><label>Net Amount</label><input type="number" name="net_amount" required></div>
+<div class="info"><label>Gross Amount</label><input type="number" name="gross_amount" required></div>
+
+<!-- Document Upload -->
+<div class="info"><label>Issuance Date</label><input type="date" name="issuance_date"></div>
+<div class="info"><label>Policy Copy</label><input type="file" name="policy_copy" required></div>
+
+<!-- Life-specific files -->
+<div id="lifeFiles" style="display:none;">
+    <div class="info"><label>Proposal Form</label><input type="file" name="proposal_form"></div>
+    <div class="info"><label>Benefit Illustration Form</label><input type="file" name="benefit_illustration_form"></div>
+    <div class="info"><label>Payment Receipt</label><input type="file" name="payment_receipt"></div>
+</div>
+
+<div class="info"><label>Please upload the KYC Documents</label><input type="file" name="kyc_docs" required></div>
+
+<button type="submit">Upload Policy</button>
+</form>
+</div>
+
+<script>
+const insuranceType = document.getElementById("insurance_type");
+const categoryDiv = document.getElementById("categoryDiv");
+const productCategory = document.getElementById("product_category");
+const planDiv = document.getElementById("planDiv");
+const policyPlan = document.getElementById("policy_plan");
+const companyDiv = document.getElementById("companyDiv");
+const insurerCompany = document.getElementById("insurer_company");
+const lifeFields = document.getElementById("lifeFields");
+const motorFields = document.getElementById("motorFields");
+const generalFields = document.getElementById("generalFields");
+const lifeFiles = document.getElementById("lifeFiles");
+
+// Data
+const productCategories = {
+    Life: ["Life","Pension"],
+    General: ["Motor","Health","Fire","SME"]
+};
+const plans = {
+    Life: ["Term Policy", "Whole Life", "Endowment", "Money Back Plan", "Unit-Linked Insurance Plans (ULIPs)", "Child Plans", "Savings - NON PAR", "Savings - PAR"],
+    Pension: ["Guaranteed Pension Plan", "Easy Retirement", "Pension- PAR", "Pension- NON PAR", ],
+    Motor: ["Commercial Vehicle - Comprehensive - GCV", "Commercial Vehicle - Comprehensive - Non GCV","Commercial Vehicle - OD - GCV","Commercial Vehicle - OD - Non GCV","Commercial Vehicle - Standalone TP - GCV", "Commercial Vehicle - Standalone TP - Non GCV", "Miscellaneous", "Private Car Bundled (1Y OD + 3Y TP)","Private Car Comp","Private Car SAOD","Private Car SATP","Professional Indemnity","Two Wheeler Comprehensive","Two Wheeler SAOD","Two Wheeler SATP","Workmen Compensation Policy"],
+    Health: ["Health -Multi Individual", "Health -Family Floater", "Health Policy -(TopUp)"],
+    Fire: ["Standard Fire & Special Perils - S.I > 50 Cr", "Bharat Laghu Udyam Suraksha- S.I = 5 Cr - 50 Cr","Bharat Sookshma Udyam Suraksha- S.I < 5 Cr", "Burglary Insurance"],
+    SME: ["Marine Cargo Insurance", "Commercial Insurance", "Cyber Insurance", "D & O Liability Insurance", "Engineering Insurance", "Professional Indemnity", "Office Package Policy", "Workman Compensation", "Business Interruption Insurance", "Workmen's Compensation", "Public Liability"]
+};
+const companies = {
+    Life: ["LIC of India",
+"HDFC Life",
+"ICICI Prudential Life",
+"SBI Life",
+"Max Life",
+"Bajaj Allianz Life",
+"Aditya Birla Sun Life",
+"Tata AIA Life",
+"PNB MetLife",
+"Kotak Mahindra Life",
+"Reliance Nippon Life",
+"Canara HSBC Life",
+"Edelweiss Tokio Life",
+"Future Generali Life",
+"Ageas Federal Life",
+"Aegon Life",
+"IndiaFirst Life",
+"Pramerica Life",
+"Bharti AXA Life",
+"Star Union Dai-ichi Life",
+"Sahara India Life"],
+    Pension: ["LIC of India",
+"HDFC Life",
+"ICICI Prudential Life",
+"SBI Life",
+"Max Life",
+"Bajaj Allianz Life",
+"Aditya Birla Sun Life",
+"Tata AIA Life",
+"PNB MetLife",
+"Kotak Mahindra Life",
+"Reliance Nippon Life",
+"Canara HSBC Life",
+"Edelweiss Tokio Life",
+"Future Generali Life",
+"Ageas Federal Life",
+"Aegon Life",
+"IndiaFirst Life",
+"Pramerica Life",
+"Bharti AXA Life",
+"Star Union Dai-ichi Life",
+"Sahara India Life"],
+    Motor: ["New India Assurance",
+"United India Insurance",
+"Oriental Insurance",
+"National Insurance",
+"ICICI Lombard",
+"Bajaj Allianz General",
+"Tata AIG General",
+"Reliance General Insurance",
+"HDFC ERGO General Insurance",
+"Future Generali General Insurance",
+"Cholamandalam MS General Insurance",
+"Royal Sundaram General Insurance",
+"SBI General Insurance",
+"Liberty General Insurance",
+"Universal Sompo General Insurance",
+"Shriram General Insurance",
+"Raheja QBE General Insurance",
+"Acko General Insurance",
+"Go Digit General Insurance",
+"Zurich Kotak General Insurance",
+"Navi General Insurance",
+"IFFCO Tokio General Insurance"],
+    Health: ["New India Assurance",
+"United India Insurance",
+"Oriental Insurance",
+"National Insurance",
+"ICICI Lombard",
+"Bajaj Allianz General",
+"Tata AIG General",
+"Reliance General Insurance",
+"HDFC ERGO General Insurance",
+"Future Generali General Insurance",
+"Cholamandalam MS General Insurance",
+"Royal Sundaram General Insurance",
+"SBI General Insurance",
+"Liberty General Insurance",
+"Universal Sompo General Insurance",
+"Shriram General Insurance",
+"Raheja QBE General Insurance",
+"Acko General Insurance",
+"Go Digit General Insurance",
+"Zurich Kotak General Insurance",
+"Navi General Insurance",
+"IFFCO Tokio General Insurance"],
+    Fire: ["New India Assurance",
+"United India Insurance",
+"Oriental Insurance",
+"National Insurance",
+"ICICI Lombard",
+"Bajaj Allianz General",
+"Tata AIG General",
+"Reliance General Insurance",
+"HDFC ERGO General Insurance",
+"Future Generali General Insurance",
+"Cholamandalam MS General Insurance",
+"Royal Sundaram General Insurance",
+"SBI General Insurance",
+"Liberty General Insurance",
+"Universal Sompo General Insurance",
+"Shriram General Insurance",
+"Raheja QBE General Insurance",
+"Acko General Insurance",
+"Go Digit General Insurance",
+"Zurich Kotak General Insurance",
+"Navi General Insurance",
+"IFFCO Tokio General Insurance"],
+    SME: ["New India Assurance",
+"United India Insurance",
+"Oriental Insurance",
+"National Insurance",
+"ICICI Lombard",
+"Bajaj Allianz General",
+"Tata AIG General",
+"Reliance General Insurance",
+"HDFC ERGO General Insurance",
+"Future Generali General Insurance",
+"Cholamandalam MS General Insurance",
+"Royal Sundaram General Insurance",
+"SBI General Insurance",
+"Liberty General Insurance",
+"Universal Sompo General Insurance",
+"Shriram General Insurance",
+"Raheja QBE General Insurance",
+"Acko General Insurance",
+"Go Digit General Insurance",
+"Zurich Kotak General Insurance",
+"Navi General Insurance",
+"IFFCO Tokio General Insurance"]
+};
+
+// Handle Insurance Type
+insuranceType.addEventListener("change", function(){
+    const type = this.value;
+    productCategory.innerHTML = '<option value="">Select</option>';
+    policyPlan.innerHTML = '<option value="">Select</option>';
+    insurerCompany.innerHTML = '<option value="">Select</option>';
+    planDiv.style.display = "none";
+    companyDiv.style.display = "none";
+    lifeFields.style.display = "none";
+    motorFields.style.display = "none";
+    generalFields.style.display = "none";
+    lifeFiles.style.display = "none";
+
+    if(!type) { categoryDiv.style.display="none"; return; }
+    categoryDiv.style.display="block";
+
+    (productCategories[type] || []).forEach(cat=>{
+        const opt = document.createElement("option");
+        opt.value = cat; opt.textContent = cat;
+        productCategory.appendChild(opt);
+    });
+
+    // Show Life-specific files
+    if(type === "Life") lifeFiles.style.display = "block";
+});
+
+// Handle Product Category
+productCategory.addEventListener("change", function(){
+    const category = this.value;
+    policyPlan.innerHTML = '<option value="">Select</option>';
+    insurerCompany.innerHTML = '<option value="">Select</option>';
+    planDiv.style.display = "none";
+    companyDiv.style.display = "none";
+
+    lifeFields.style.display = "none";
+    motorFields.style.display = "none";
+    generalFields.style.display = "none";
+
+    if(!category) return;
+
+    // Plans
+    (plans[category] || []).forEach(plan=>{
+        const opt = document.createElement("option");
+        opt.value = plan; opt.textContent = plan;
+        policyPlan.appendChild(opt);
+    });
+    planDiv.style.display="block";
+
+    // Companies
+    (companies[category] || []).forEach(comp=>{
+        const opt = document.createElement("option");
+        opt.value = comp; opt.textContent = comp;
+        insurerCompany.appendChild(opt);
+    });
+    companyDiv.style.display="block";
+
+    // Conditional fields
+    if(category=="Life" || category=="Pension"){
+        lifeFields.style.display="block";
+    } else if(category=="Motor"){
+        motorFields.style.display="block";
+    } else {
+        generalFields.style.display="block";
+    }
+});
+</script>
+
+</body>
+</html>

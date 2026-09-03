@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | Crest Insurance Brokers</title>
+    
+    <!-- Bootstrap & Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Google Font Import -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-navy: #041224;
+            --accent-blue: #0d6efd;
+            --accent-cyan: #00e5ff;
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+            --bg-light: #f8fafc;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background: var(--bg-light);
+            overflow-x: hidden;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /*=========================
+            NAVBAR
+        ==========================*/
+        .navbar {
+            background: rgba(250, 251, 252, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.3s ease;
+            padding: 16px 0;
+        }
+        .navbar-brand {
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            color: #ffffff !important;
+            font-size: 1.35rem;
+        }
+        .navbar-brand span {
+            color: var(--accent-cyan);
+        }
+        .nav-link {
+            color: rgba(9, 0, 0, 0.75) !important;
+            font-weight: 800;
+            margin: 0 12px;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            
+        }
+        .nav-link:hover, .nav-link.active {
+            color: #100000 !important;
+        }
+        .navbar-btn {
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
+            border: none;
+            color: #373839 !important;
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .navbar-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 229, 255, 0.3);
+        }
+
+        /*=========================
+            HERO SECTION
+        ==========================*/
+        .hero {
+            position: relative;
+            overflow: hidden;
+            min-height: 90vh;
+            background: linear-gradient(135deg, #020b18 0%, #08264f 100%);
+            display: flex;
+            align-items: center;
+            color: #fff;
+            padding: 140px 0 100px;
+        }
+
+        .lattice-grid {
+            position: absolute;
+            inset: 0;
+            background-image: 
+                linear-gradient(rgba(0, 229, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 229, 255, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+            mask-image: radial-gradient(circle at center, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 80%);
+            -webkit-mask-image: radial-gradient(circle at center, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 80%);
+            z-index: 1;
+        }
+
+        .network-lines {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            background: 
+                radial-gradient(circle at 80% 20%, rgba(0, 229, 255, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 20% 80%, rgba(13, 110, 253, 0.15) 0%, transparent 40%);
+            pointer-events: none;
+        }
+
+        .hero .container {
+            position: relative;
+            z-index: 10;
+        }
+
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(0, 229, 255, 0.15);
+            backdrop-filter: blur(8px);
+            z-index: 3;
+            animation: float 8s ease-in-out infinite;
+        }
+        .c1 { width: 100px; height: 100px; top: 15%; left: 5%; }
+        .c2 { width: 60px; height: 60px; bottom: 15%; left: 45%; animation-delay: 2s; }
+        .c3 { width: 140px; height: 140px; top: 35%; right: 3%; animation-delay: 4s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.15;
+            letter-spacing: -1px;
+            background: linear-gradient(120deg, #ffffff 60%, rgba(255,255,255,0.7));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero h1 span {
+            background: linear-gradient(120deg, #00e5ff, #0d6efd);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero p {
+            font-size: 1.15rem;
+            color: #94a3b8;
+            margin-top: 24px;
+            font-weight: 400;
+        }
+        .btn-gradient {
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
+            color: #fff;
+            padding: 16px 36px;
+            border-radius: 50px;
+            font-weight: 600;
+            border: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0, 229, 255, 0.25);
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn-gradient:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0, 229, 255, 0.4);
+            color: #fff;
+        }
+        .hero-mockup {
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 20px;
+            padding: 10px;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+            transform: perspective(1000px) rotateY(-6deg) rotateX(2deg);
+            transition: transform 0.5s ease;
+        }
+        .hero-mockup:hover {
+            transform: perspective(1000px) rotateY(0deg) rotateX(0deg);
+        }
+
+        /*=========================
+            SECTIONS & CONTENT
+        ==========================*/
+        section {
+            padding: 100px 0;
+        }
+        .title-container {
+            margin-bottom: 60px;
+        }
+        .title {
+            font-size: 2.25rem;
+            font-weight: 800;
+            color: var(--primary-navy);
+            letter-spacing: -0.5px;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 12px;
+        }
+        .title::after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-cyan));
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+        .title-left::after {
+            left: 0;
+            transform: none;
+        }
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            margin-top: 8px;
+        }
+
+        /* Cards & Icons */
+        .card-box {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 36px 28px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+            transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+            height: 100%;
+            border: 1px solid #e2e8f0;
+        }
+        .card-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(8, 38, 79, 0.08);
+            border-color: rgba(13, 110, 253, 0.3);
+        }
+        .icon-box {
+            width: 56px;
+            height: 56px;
+            background: #eff6ff;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+        .card-box:hover .icon-box {
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
+        }
+        .card-box:hover .icon-box i {
+            color: #ffffff;
+        }
+        .icon-box i {
+            font-size: 24px;
+            color: var(--accent-blue);
+            transition: color 0.3s ease;
+        }
+        .card-box h3, .card-box h4 {
+            font-weight: 700;
+            color: var(--primary-navy);
+            margin-bottom: 12px;
+            font-size: 1.25rem;
+        }
+
+        /* Stats */
+        .stats {
+            background: var(--primary-navy);
+            color: white;
+            position: relative;
+            padding: 80px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .stat-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 32px 20px;
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+        }
+        .counter {
+            font-size: 2.75rem;
+            font-weight: 800;
+            color: var(--accent-cyan);
+            margin-bottom: 8px;
+            letter-spacing: -1px;
+        }
+
+        /* CTA Section */
+        .cta {
+            background: linear-gradient(135deg, #020b18, #08264f), 
+                        url("https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=1800&q=80");
+            background-blend-mode: overlay;
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 100px 20px;
+        }
+        .cta h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+            letter-spacing: -0.5px;
+        }
+        .cta p {
+            font-size: 1.1rem;
+            color: #94a3b8;
+            max-width: 600px;
+            margin: 0 auto 32px auto;
+        }
+
+        /* Footer */
+        footer {
+            background: #020b18;
+            color: #64748b;
+            padding: 82px 20px;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 0.9rem;
+        }
+
+        /* LEADERSHIP SECTION */
+        #fintech-leadership-section {
+            background: var(--primary-navy);
+            padding: 100px 0;
+            color: #f8fafc;
+        }
+        #fintech-leadership-section .title {
+            color: #ffffff;
+        }
+        #fintech-leadership-section .title::after {
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-blue));
+        }
+        #fintech-leadership-section .subtitle {
+            color: #94a3b8;
+        }
+        /* Grid layout updated for 4 members */
+        #fintech-leadership-section .team-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+        #fintech-leadership-section .team-card {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            overflow: hidden;
+            backdrop-filter: blur(12px);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        #fintech-leadership-section .team-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(0, 229, 255, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+        #fintech-leadership-section .team-img-wrapper {
+            width: 100%;
+            height: 380px;
+            overflow: hidden;
+            background: #0f172a;
+        }
+        #fintech-leadership-section .team-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top;
+            transition: transform 0.5s ease;
+        }
+        #fintech-leadership-section .team-card:hover .team-img-wrapper img {
+            transform: scale(1.05);
+        }
+        #fintech-leadership-section .team-info {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+        #fintech-leadership-section .team-info h4 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin: 0 0 4px 0;
+            color: #ffffff;
+        }
+        #fintech-leadership-section .team-info .role {
+            font-size: 0.8rem;
+            color: var(--accent-cyan);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+        }
+        #fintech-leadership-section .team-info .bio {
+            font-size: 0.85rem;
+            color: #94a3b8;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        /* Responsive Designs */
+        @media (max-width: 1199px) {
+            #fintech-leadership-section .team-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 991px) {
+            .hero {
+                padding-top: 120px;
+                text-align: center;
+                min-height: auto;
+            }
+            .hero h1 {
+                font-size: 2.75rem;
+            }
+            .hero-mockup {
+                margin-top: 40px;
+                transform: none !important;
+            }
+        }
+
+        @media (max-width: 576px) {
+            #fintech-leadership-section .team-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+/* LOGO IMAGE */
+.logo img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    border-radius: 50%;
+    box-shadow: 10px 14px 8px rgba(10,0,0,0.45);
+}
+
+/* TEXT BLOCK */
+.logo-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.brand-name {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    line-height: 1.1;
+    color: #222;
+}
+
+.crest-text {
+    color: #00AEEF;
+}
+
+/* TAGLINE */
+.tagline {
+    margin-top: 4px;
+    font-size: 20px;
+    color: #7c6cff;
+    font-style: italic;
+    font-family: 'Great Vibes', cursive;
+    
+    letter-spacing: 0.6px;
+}
+
+
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+
+
+         <!-- Logo -->
+        <div class="logo">
+            <img src="{{ url_for('static', filename='images/crest_logo.png') }}" alt="Crest Insure">
+
+            <div class="logo-text">
+                <div class="brand-name">
+                    <span class="crest-text">Crest</span> Insure
+                </div>
+                <div class="tagline">Simplifying Insurance</div>
+            </div>
+        </div>
+     
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('posp') }}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="{{ url_for('contact') }}">Contact</a></li>
+                    <li class="nav-item ms-lg-3"><a class="navbar-btn" href="{{ url_for('signup') }}">Get Started</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="lattice-grid"></div>
+        <div class="network-lines"></div>
+        
+        <div class="circle c1"></div>
+        <div class="circle c2"></div>
+        <div class="circle c3"></div>
+
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h1>Smarter Protection <span>For What Matters.</span></h1>
+                    <p>
+                        Crest Insurance Brokers combines reliable legacy insurance safeguards with cutting-edge fintech innovation to secure your future seamlessly.
+                    </p>
+                    <a href="{{ url_for('signup') }}" class="btn btn-gradient btn-lg mt-4">
+                        Get Started <i class="bi bi-arrow-right ms-2"></i>
+                    </a>
+                </div>
+                <div class="col-lg-6">
+                    <div class="hero-mockup mt-5 mt-lg-0">
+                        <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80" class="img-fluid rounded-3" alt="Digital Trading Interface">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT / WHO WE ARE -->
+    <section>
+        <div class="container">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-6">
+                    <div class="position-relative">
+                        <img src="https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=900&q=80" class="img-fluid rounded-4 shadow" alt="Corporate Meeting">
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <h2 class="title title-left">Who We Are</h2>
+                    <p class="mt-4 text-secondary leading-relaxed">
+                        Crest Insurance Brokers is committed to delivering transparent, technology-driven insurance solutions for individuals, SMEs, and enterprises. We partner with leading insurers to provide tailored coverage across Life, Health, Motor, Travel, SME, and Corporate Insurance.
+                    </p>
+                    <p class="text-muted">
+                        Our experienced professionals focus on customer-first advice, fast claims assistance, digital onboarding, and long-term relationships built on trust.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- VISION & MISSION -->
+    <section class="bg-light">
+        <div class="container">
+            <div class="text-center title-container">
+                <h2 class="title">Vision & Mission</h2>
+                <p class="subtitle">Building trust through insurance, driven by modern technology.</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-6">
+                    <div class="card-box">
+                        <div class="icon-box">
+                            <i class="bi bi-eye"></i>
+                        </div>
+                        <h3>Our Vision</h3>
+                        <p class="text-muted mb-0">
+                            To become India's most trusted digital insurance brokerage delivering financial security to every customer through modern fintech integration.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card-box">
+                        <div class="icon-box">
+                            <i class="bi bi-bullseye"></i>
+                        </div>
+                        <h3>Our Mission</h3>
+                        <p class="text-muted mb-0">
+                            Provide affordable insurance, expert advice, and outstanding customer service through relentless technological innovation and customer-centricity.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WHY CHOOSE US -->
+    <section>
+        <div class="container">
+            <div class="text-center title-container">
+                <h2 class="title">Why Choose Us</h2>
+                <p class="subtitle">Elevating protection through tech-driven solutions.</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-3">
+                    <div class="card-box text-center">
+                        <div class="icon-box mx-auto">
+                            <i class="bi bi-shield-check"></i>
+                        </div>
+                        <h4>Trusted Advice</h4>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card-box text-center">
+                        <div class="icon-box mx-auto">
+                            <i class="bi bi-phone"></i>
+                        </div>
+                        <h4>Digital Platform</h4>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card-box text-center">
+                        <div class="icon-box mx-auto">
+                            <i class="bi bi-headset"></i>
+                        </div>
+                        <h4>Claims Support</h4>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card-box text-center">
+                        <div class="icon-box mx-auto">
+                            <i class="bi bi-people"></i>
+                        </div>
+                        <h4>Expert Team</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STATS -->
+    <section class="stats">
+        <div class="container">
+            <div class="row text-center g-4">
+                <div class="col-md-3 col-sm-6">
+                    <div class="stat-card">
+                        <h2 class="counter">50K+</h2>
+                        <p class="mb-0 text-white-50">Happy Customers</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="stat-card">
+                        <h2 class="counter">30+</h2>
+                        <p class="mb-0 text-white-50">Insurance Partners</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="stat-card">
+                        <h2 class="counter">100+</h2>
+                        <p class="mb-0 text-white-50">Expert Advisors</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="stat-card">
+                        <h2 class="counter">98%</h2>
+                        <p class="mb-0 text-white-50">Customer Satisfaction</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DIRECTOR MESSAGE -->
+    <section>
+        <div class="container">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-4 text-center text-lg-start">
+                    <img src="{{ url_for('static', filename='images/partners/Sukbir_Pundir.png') }}" class="img-fluid rounded-4 shadow" alt="Director">
+                </div>
+                <div class="col-lg-8">
+                    <h2 class="title title-left">Message From Director</h2>
+                    <p class="fs-5 mt-4 text-secondary fst-italic">
+                        "Our commitment is to simplify insurance and create lasting relationships through honesty, innovation, and exceptional service. Every customer deserves peace of mind, and we work every day to deliver exactly that."
+                    </p>
+                    <h5 class="mt-4 fw-bold text-primary">Director & Founder</h5>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LEADERSHIP TEAM SECTION (4 MEMBERS) -->
+    <section id="fintech-leadership-section">
+        <div class="container">
+            <div class="text-center title-container">
+                <h2 class="title">Leadership Team</h2>
+                <p class="subtitle">Architecting the algorithmic frameworks that secure global capital and enterprise scale.</p>
+            </div>
+
+            <div class="team-grid">
+                <!-- Member 1: Sukbir Singh Pundir -->
+                <div class="team-card">
+                    <div class="team-img-wrapper">
+                        <img src="{{ url_for('static', filename='images/partners/Sukbir_Pundir.png') }}" alt="Sukbir Singh Pundir">
+                    </div>
+                    <div class="team-info">
+                        <h4>Sukbir Singh Pundir</h4>
+                        <p class="role">CEO & Co-Founder</p>
+                        <p class="bio">Alumnus of Symbiosis | Double Post-Graduate in Management, University of Poona | Engineering Graduate ETCE-AFTC Bengaluru | Ex-Air Force | Ex-Tarun Tahiliani | Ex-Pathways | Ex-Zomato.</p>
+                    </div>
+                </div>
+
+                <!-- Member 2: Kulvinder Singh Kadian -->
+                <div class="team-card">
+                    <div class="team-img-wrapper">
+                        <img src="{{ url_for('static', filename='images/partners/Kulvinder.jpg') }}" alt="Kulvinder Singh Kadian">
+                    </div>
+                    <div class="team-info">
+                        <h4>Kulvinder Singh Kadian</h4>
+                        <p class="role">Member of Board</p>
+                        <p class="bio">A profound businessman, technocrat, and educator built over 24 years of expertise. Leverages a unique capability to structure products that are both high-value and affordable.</p>
+                    </div>
+                </div>
+
+                <!-- Member 3: Capt. Hamendra Sharma -->
+                <div class="team-card">
+                    <div class="team-img-wrapper">
+                        <img src="{{ url_for('static', filename='images/partners/Capt. Hamendra Sharma.png') }}" alt="Capt. Hamendra Sharma">
+                    </div>
+                    <div class="team-info">
+                        <h4>Capt. Hamendra Sharma</h4>
+                        <p class="role">Executive Director</p>
+                    <p class="bio">Alumnus of IIM Indore | Ex-Army, Ex-Marriott, Ex-MakeMyTrip, Ex-Zomato. An able administrator with 18+ years of leadership experience, "Captain" brings a structured yet people-centric approach to Crest’s culture and talent strategy.</p>
+                    </div>
+                </div>
+
+                <!-- Member 4: Fourth Leader Placeholder -->
+                <div class="team-card">
+                    <div class="team-img-wrapper">
+                        <img src="{{ url_for('static', filename='images/partners/Abhay Rathore.png') }}" alt="Leadership Member">
+                    </div>
+                    <div class="team-info">
+                        <h4>Abhay Rathore</h4>
+                        <p class="role">Sales Director</p>
+                        <p class="bio">Strategic business leader driving key enterprise accounts, distribution networks, and growth strategies to accelerate market expansion across digital insurance channels.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA SECTION -->
+    <section class="cta">
+        <div class="container">
+            <h2>Ready to Get Started?</h2>
+            <p>Experience the next generation of digital insurance brokerages designed around your security.</p>
+            <a href="{{ url_for('signup') }}" class="btn btn-gradient btn-lg">
+                Create An Account <i class="bi bi-arrow-right ms-2"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <p class="mb-0">&copy; 2026 Crest Insurance Brokers. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

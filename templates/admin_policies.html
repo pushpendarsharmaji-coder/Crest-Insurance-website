@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Policy Admin Dashboard</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+    }
+    h2 {
+        margin-bottom: 20px;
+    }
+    .info {
+        margin-bottom: 15px;
+    }
+    label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+    input, select, button {
+        padding: 8px;
+        width: 100%;
+        max-width: 400px;
+        box-sizing: border-box;
+        margin-bottom: 10px;
+    }
+    button {
+        cursor: pointer;
+        background-color: #007BFF;
+        color: white;
+        border: none;
+    }
+    button:hover {
+        background-color: #0056b3;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+    th, td {
+        border: 1px solid #ccc;
+        padding: 8px;
+        text-align: left;
+    }
+    th {
+        background-color: #f2f2f2;
+    }
+    #adminControls {
+        margin-top: 30px;
+    }
+</style>
+</head>
+<body>
+
+<h2>Upload Policy</h2>
+
+<form id="policyForm">
+    <div class="info">
+        <label>Insurance Type</label>
+        <select name="policy_category" id="policy_category" onchange="togglePolicyFields()" required>
+            <option value="">Select</option>
+            <option value="Life">Life Insurance</option>
+            <option value="General">General Insurance</option>
+        </select>
+    </div>
+
+    <div class="info">
+        <label>Policy Number</label>
+        <input type="text" name="policy_number" required>
+    </div>
+
+    <div class="info">
+        <label>Policy Holder</label>
+        <input type="text" name="policy_holder" required>
+    </div>
+
+    <div id="lifeFields" style="display:none;">
+        <div class="info">
+            <label>Sum Assured</label>
+            <input type="number" name="sum_assured">
+        </div>
+
+        <div class="info">
+            <label>Policy Term (Years)</label>
+            <input type="number" name="policy_term">
+        </div>
+    </div>
+
+    <div id="generalFields" style="display:none;">
+        <div class="info">
+            <label>Vehicle Number / Property</label>
+            <input type="text" name="asset_details">
+        </div>
+
+        <div class="info">
+            <label>IDV / Coverage Amount</label>
+            <input type="number" name="coverage_amount">
+        </div>
+    </div>
+
+    <div class="info">
+        <label>Upload Policy Document</label>
+        <input type="file" name="policy_file" required>
+    </div>
+
+    <button type="submit">Upload Policy</button>
+</form>
+
+<!-- Table -->
+<h2>Policy Table</h2>
+<table id="policyTable">
+    <thead>
+        <tr>
+            <th>Policy Number</th>
+            <th>Policy Holder</th>
+            <th>Insurance Type</th>
+            <th>Sum Assured / Coverage</th>
+            <th>Asset / Term</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Policies will appear here -->
+    </tbody>
+</table>
+
+<!-- Admin Column Controls -->
+<div id="adminControls">
+    <h2>Admin Column Management</h2>
+    <input type="text" id="newColumnName" placeholder="Column Name">
+    <button onclick="addColumn()">Add Column</button>
+    <br>
+    <input type="text" id="removeColumnName" placeholder="Column Name to Remove">
+    <button onclick="removeColumn()">Remove Column</button>
+</div>
+
+<script>
+function togglePolicyFields() {
+    let type = document.getElementById("policy_category").value;
+    document.getElementById("lifeFields").style.display = "none";
+    document.getElementById("generalFields").style.display = "none";
+
+    if (type === "Life") {
+        document.getElementById("lifeFields").style.display = "block";
+    } else if (type === "General") {
+        document.getElementById("generalFields").style.display = "block";
+    }
+}
+
+// Handle form submission
+document.getElementById("policyForm").addEventListener("submit", function(e) {
+    e.preventDefault(); // prevent page reload
+
+    const form = e.target;
+    const type = form.policy_category.value;
+    const policyNumber = form.policy_number.value;
+    const policyHolder = form.policy_holder.value;
+    let col1 = "", col2 = "";
+
+    if (type === "Life") {
+        col1 = form.sum_assured.value || "-";
+        col2 = form.policy_term.value || "-";
+    } else if (type === "General") {
+        col1 = form.coverage_amount.value || "-";
+        col2 = form.asset_details.value || "-";
+    }
+
+    // Add row to table
+    const tableBody = document.getElementById("policyTable").querySelector("tbody");
+    const row = document.createElement("tr");
+    row.innerHTML = `
+        <td>${policyNumber}</td>
+        <td>${policyHolder}</td>
+        <td>${type}</td>
+        <td>${col1}</td>
+        <td>${col2}</td>
+    `;
+    tableBody.appendChild(row);
+
+    form.reset();
+    togglePolicyFields(); // hide extra fields
+});
+
+// Admin functions
+function addColumn() {
+    const columnName = document.getElementById("newColumnName").value.trim();
+    if (!columnName) return alert("Please enter a column name.");
+
+    const table = document.getElementById("policyTable");
+
+    // Add header
+    const th = document.createElement("th");
+    th.textContent = columnName;
+    table.querySelector("thead tr").appendChild(th);
+
+    // Add empty cells to each row
+    table.querySelectorAll("tbody tr").forEach(row => {
+        const td = document.createElement("td");
+        td.textContent = "";
+        row.appendChild(td);
+    });
+
+    document.getElementById("newColumnName").value = "";
+}
+
+function removeColumn() {
+    const columnName = document.getElementById("removeColumnName").value.trim();
+    if (!columnName) return alert("Please enter a column name to remove.");
+
+    const table = document.getElementById("policyTable");
+    const headers = table.querySelectorAll("thead th");
+
+    let colIndex = -1;
+    headers.forEach((th, idx) => {
+        if (th.textContent === columnName) colIndex = idx;
+    });
+
+    if (colIndex === -1) return alert("Column not found.");
+
+    headers[colIndex].remove();
+    table.querySelectorAll("tbody tr").forEach(row => {
+        row.cells[colIndex].remove();
+    });
+
+    document.getElementById("removeColumnName").value = "";
+}
+</script>
+
+</body>
+</html>

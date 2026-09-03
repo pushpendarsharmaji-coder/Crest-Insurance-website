@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <style>
+        :root {
+            --primary: #0284c7;
+            --secondary: #10b981;
+            --danger: #ef4444;
+            --bg-dark: #0f172a;
+            --glass-bg: rgba(255, 255, 255, 0.45);
+            --glass-border: rgba(255, 255, 255, 0.4);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+        }
+
+        body {
+            background: radial-gradient(circle at center, #ffffff 0%, #edf4fc 100%);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            overflow-x: hidden;
+            color: #0f172a;
+            height: 100vh;
+        }
+
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 1;
+        }
+
+        /* --- FINTECH NAVIGATION BAR --- */
+        .fintech-nav {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 1200px;
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            padding: 14px 28px;
+            border-radius: 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 1.3rem;
+            letter-spacing: -0.5px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #475569;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .cta-btn {
+            background: #0f172a;
+            color: white !important;
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: transform 0.2s;
+        }
+
+        .cta-btn:hover {
+            transform: scale(1.03);
+        }
+
+        /* --- HERO & INTERACTIVE CONTENT OVERLAY --- */
+        .hero-layout {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 140px 4% 40px 4%;
+            pointer-events: none;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            height: calc(100vh - 100px);
+            align-items: center;
+        }
+
+        .hero-text {
+            max-width: 520px;
+        }
+
+        .hero-text h2 {
+            font-size: 3.2rem;
+            font-weight: 900;
+            line-height: 1.1;
+            letter-spacing: -1px;
+            margin-bottom: 15px;
+            color: #0f172a;
+        }
+
+        .hero-text p {
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: #475569;
+            margin-bottom: 30px;
+        }
+
+        /* --- FLOATING INSURANCE CARDS (GLASSMORPHISM) --- */
+        .cards-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            justify-self: end;
+            pointer-events: auto;
+        }
+
+        .insurance-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            padding: 20px;
+            border-radius: 16px;
+            width: 320px;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .insurance-card:hover {
+            transform: translateX(-10px) translateY(-2px);
+            background: rgba(255, 255, 255, 0.6);
+            box-shadow: 0 20px 40px rgba(2, 132, 199, 0.08);
+        }
+
+        .card-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .card-icon.life { background: var(--primary); }
+        .card-icon.health { background: var(--danger); }
+        .card-icon.motor { background: var(--secondary); }
+
+        .card-info h3 { font-size: 1rem; font-weight: 700; margin-bottom: 2px; }
+        .card-info p { font-size: 0.8rem; color: #64748b; margin: 0; }
+
+        /* --- ANIMATED STATISTICS MATRIX --- */
+        .stats-matrix {
+            grid-column: span 2;
+            display: flex;
+            gap: 60px;
+            margin-top: 20px;
+            background: rgba(255, 255, 255, 0.4);
+            padding: 20px;
+            border-radius: 20px;
+            backdrop-filter: blur(5px);
+            align-self: end;
+            width: max-content;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .stat-node { display: flex; flex-direction: column; }
+        .stat-val { font-size: 1.8rem; font-weight: 800; color: #0f172a; }
+        .stat-lbl { font-size: 0.8rem; color: #64748b; font-weight: 600; text-transform: uppercase; }
+
+        /* --- MOBILE RESPONSIVE LAYOUT OVERRIDES --- */
+        @media(max-width: 968px) {
+            .nav-links { display: none; }
+            .hero-layout {
+                grid-template-columns: 1fr;
+                padding-top: 110px;
+                height: auto;
+                gap: 40px;
+                text-align: center;
+                justify-items: center;
+            }
+            .hero-text { max-width: 100%; }
+            .hero-text h2 { font-size: 2.3rem; }
+            .cards-panel { justify-self: center; width: 100%; align-items: center; }
+            .insurance-card { width: 100%; max-width: 340px; }
+            .stats-matrix { grid-column: span 1; gap: 30px; width: 100%; justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+
+
+    <main class="hero-layout">
+        <section class="hero-text">
+            <h2>Adaptive Risk Protection.</h2>
+            <p>Deploy integrated algorithmic coverages designed to seamlessly protect your physical assets, vehicular fleets, and dynamic capital configurations with real-time underwriting mitigation.</p>
+        </section>
+
+        <section class="cards-panel">
+            <div class="insurance-card" onclick="highlightZone('life')">
+                <div class="card-icon life">❤️</div>
+                <div class="card-info">
+                    <h3>Term Life Framework</h3>
+                    <p>Capital asset succession structures</p>
+                </div>
+            </div>
+            <div class="insurance-card" onclick="highlightZone('health')">
+                <div class="card-icon health">➕</div>
+                <div class="card-info">
+                    <h3>Medical & Health Core</h3>
+                    <p>Global real-time clinical mitigation</p>
+                </div>
+            </div>
+            <div class="insurance-card" onclick="highlightZone('motor')">
+                <div class="card-icon motor">🚗</div>
+                <div class="card-info">
+                    <h3>Dynamic Motor Policy</h3>
+                    <p>Smart asset perimeter defense networks</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="stats-matrix">
+            <div class="stat-node">
+                <span class="stat-val" id="stat-claims">0</span>
+                <span class="stat-lbl">Claims Approved</span>
+            </div>
+            <div class="stat-node">
+                <span class="stat-val" id="stat-sec">0</span>
+                <span class="stat-lbl">Secured Capital</span>
+            </div>
+        </section>
+    </main>
+
+    
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+
+    <script>
+        // --- 1. SETUP THREE.JS WORLD ENGINE ---
+        const container = document.getElementById('canvas-container');
+        const scene = new THREE.Scene();
+
+        const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.set(0, 16, 28);
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "high-performance" });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        renderer.shadowMap.enabled = true;
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        container.appendChild(renderer.domElement);
+
+        const controls = new THREE.OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+        controls.dampingFactor = 0.05;
+        controls.maxPolarAngle = Math.PI / 2 - 0.1;
+        controls.minDistance = 12;
+        controls.maxDistance = 45;
+
+        // --- 2. ADVANCED ENVIRONMENT LIGHTING (SIMULATED HDR STUDIO) ---
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+        scene.add(ambientLight);
+
+        const studioLight = new THREE.DirectionalLight(0xffffff, 1.2);
+        studioLight.position.set(20, 35, 15);
+        studioLight.castShadow = true;
+        studioLight.shadow.mapSize.width = 2048;
+        studioLight.shadow.mapSize.height = 2048;
+        scene.add(studioLight);
+
+        // Core platform glowing cyan driver light
+        const ecosystemGlow = new THREE.PointLight(0x0284c7, 2, 25);
+        ecosystemGlow.position.set(0, 2, 0);
+        scene.add(ecosystemGlow);
+
+        // --- 3. ANIMATED NEBULA PARTICLE SYSTEM (1,200+ Nodes) ---
+        const particleCount = 1200;
+        const particleGeo = new THREE.BufferGeometry();
+        const positions = new Float32Array(particleCount * 3);
+        const randomSpeeds = new Float32Array(particleCount);
+        
+        for(let i=0; i<particleCount*3; i+=3) {
+            let angle = Math.random() * Math.PI * 2;
+            let radius = 3 + Math.random() * 12;
+            positions[i] = Math.cos(angle) * radius;
+            positions[i+1] = Math.random() * 10 - 2;
+            positions[i+2] = Math.sin(angle) * radius;
+            randomSpeeds[i/3] = 0.01 + Math.random() * 0.02;
+        }
+        
+        particleGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+        const particleMat = new THREE.PointsMaterial({
+            color: 0x38bdf8,
+            size: 0.18,
+            transparent: true,
+            opacity: 0.55,
+            blending: THREE.AdditiveBlending
+        });
+        const nebulaParticles = new THREE.Points(particleGeo, particleMat);
+        scene.add(nebulaParticles);
+
+        // --- 4. DYNAMIC ECOSYSTEM MODULES ---
+        const masterPlatform = new THREE.Group();
+        scene.add(masterPlatform);
+
+        // High gloss protection floor base
+        const floor = new THREE.Mesh(
+            new THREE.CylinderGeometry(11, 11.5, 0.6, 64),
+            new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.3, metalness: 0.1 })
+        );
+        floor.receiveShadow = true;
+        masterPlatform.add(floor);
+
+        // Highway Ring Circuit (Motor Zone Track)
+        const highwayTrack = new THREE.Mesh(
+            new THREE.RingGeometry(9.2, 9.8, 64),
+            new THREE.MeshBasicMaterial({ color: 0xe2e8f0, side: THREE.DoubleSide })
+        );
+        highwayTrack.rotateX(-Math.PI/2);
+        highwayTrack.position.y = 0.31;
+        masterPlatform.add(highwayTrack);
+
+        // A. LIFE MODULE (Interactive Dome & Columns)
+        const lifeModule = new THREE.Group();
+        const lifeShield = new THREE.Mesh(
+            new THREE.SphereGeometry(3.5, 32, 16, 0, Math.PI*2, 0, Math.PI/2.2),
+            new THREE.MeshStandardMaterial({ color: 0x0284c7, transparent: true, opacity: 0.35, side: THREE.DoubleSide, roughness: 0.1 })
+        );
+        const p1 = new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.28, 1.8, 8), new THREE.MeshStandardMaterial({ color: 0x1e293b }));
+        p1.position.set(-0.4, 0.9, 0);
+        const p2 = p1.clone(); p2.position.set(0.4, 0.8, 0); p2.scale.set(1, 0.85, 1);
+        lifeModule.add(lifeShield, p1, p2);
+        masterPlatform.add(lifeModule);
+
+        // B. HEALTH MODULE (Interactive Cross)
+        const healthModule = new THREE.Group();
+        const crossM = new THREE.MeshStandardMaterial({ color: 0xef4444, roughness: 0.2 });
+        const hSegment = new THREE.Mesh(new THREE.BoxGeometry(1.8, 0.5, 0.5), crossM);
+        const vSegment = new THREE.Mesh(new THREE.BoxGeometry(0.5, 1.8, 0.5), crossM);
+        healthModule.add(hSegment, vSegment);
+        healthModule.position.set(-5, 2.5, 3);
+        masterPlatform.add(healthModule);
+
+        // C. MOTOR MODULE (Dynamic Vehicle)
+        const motorVehicle = new THREE.Group();
+        const carCore = new THREE.Mesh(new THREE.BoxGeometry(1.8, 0.5, 0.9), new THREE.MeshStandardMaterial({ color: 0x10b981, roughness: 0.2 }));
+        carCore.position.y = 0.25;
+        const carTop = new THREE.Mesh(new THREE.BoxGeometry(0.9, 0.4, 0.75), new THREE.MeshStandardMaterial({ color: 0x0f172a }));
+        carTop.position.set(-0.1, 0.65, 0);
+        motorVehicle.add(carCore, carTop);
+        scene.add(motorVehicle);
+
+        // --- 5. INTERACTIVE TRIGGERS ---
+        let activeTriggerZone = null;
+        let actionTime = 0;
+
+        function highlightZone(zone) {
+            actionTime = 0;
+            if (zone === 'life') activeTriggerZone = lifeModule;
+            if (zone === 'health') activeTriggerZone = healthModule;
+            if (zone === 'motor') activeTriggerZone = motorVehicle;
+        }
+
+        // --- 6. STATISTICS LIFECYCLE TICKER ---
+        function animateStatistics(id, finalValue, duration, suffix = "") {
+            const el = document.getElementById(id);
+            let startTime = null;
+
+            function step(timestamp) {
+                if (!startTime) startTime = timestamp;
+                const progress = Math.min((timestamp - startTime) / duration, 1);
+                el.innerText = Math.floor(progress * finalValue).toLocaleString() + suffix;
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            }
+            window.requestAnimationFrame(step);
+        }
+
+        // Trigger stats counter after load
+        setTimeout(() => {
+            animateStatistics('stat-claims', 99.4, 2000, "%");
+            animateStatistics('stat-sec', 4500000, 2500, " INR");
+        }, 500);
+
+        // --- 7. GLOBAL RENDER ENGINE RUNTIME LOOP ---
+        const clock = new THREE.Clock();
+
+        function animate() {
+            requestAnimationFrame(animate);
+            const delta = clock.getDelta();
+            const time = clock.getElapsedTime();
+
+            // 1. Nebula Particle Upward Loop Translation
+            const coords = nebulaParticles.geometry.attributes.position.array;
+            for(let i=1; i<coords.length; i+=3) {
+                coords[i] += randomSpeeds[(i-1)/3];
+                if(coords[i] > 8) coords[i] = -2; 
+            }
+            nebulaParticles.geometry.attributes.position.needsUpdate = true;
+            nebulaParticles.rotation.y = time * 0.02;
+
+            // 2. Health Zone hovering drift
+            healthModule.position.y = 2.5 + Math.sin(time * 1.6) * 0.25;
+            healthModule.rotation.y = time * 0.5;
+
+            // 3. Motor highway path trajectory compilation
+            const routeAngle = -time * 0.35;
+            motorVehicle.position.x = Math.cos(routeAngle) * 9.5;
+            motorVehicle.position.z = Math.sin(routeAngle) * 9.5;
+            motorVehicle.rotation.y = -routeAngle + Math.PI / 2;
+
+            // 4. Smooth visual click impact controller physics
+            if(activeTriggerZone) {
+                actionTime += 0.15;
+                let bounceVal = Math.abs(Math.sin(actionTime)) * 1.5;
+                if (activeTriggerZone === motorVehicle) {
+                    motorVehicle.position.y = bounceVal;
+                } else {
+                    activeTriggerZone.position.y = (activeTriggerZone === healthModule ? 2.5 : 0) + bounceVal;
+                }
+                if(actionTime >= Math.PI) activeTriggerZone = null; // Kill loop cleanly after 1 complete spring arc
+            }
+
+            // 5. Cinematic platform showcase turntable drift
+            masterPlatform.rotation.y = time * 0.04;
+
+            controls.update();
+            renderer.render(scene, camera);
+        }
+
+        // --- 8. RESIZE ENGINE LIQUID LAYER CONFIG ---
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Fire rendering cycle
+        animate();
+    </script>
+</body>
+</html>

@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Contact Us | Crest Insure</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
+<style>
+
+*{box-sizing:border-box;}
+
+body{
+margin:0;
+font-family:'Segoe UI',sans-serif;
+background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+/* BACK BUTTON STYLE */
+.back-btn-container {
+margin-bottom: 30px;
+position: relative;
+z-index: 5;
+}
+
+.back-btn-container.mobile-only {
+display: none;
+}
+
+.back-link {
+display: inline-flex;
+align-items: center;
+gap: 10px;
+color: #ffffff;
+text-decoration: none;
+font-size: 14px;
+font-weight: 600;
+background: rgba(255, 255, 255, 0.12);
+padding: 10px 20px;
+border-radius: 30px;
+backdrop-filter: blur(5px);
+border: 1px solid rgba(255, 255, 255, 0.15);
+transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.back-link i {
+transition: transform 0.3s ease;
+}
+
+.back-link:hover {
+background: #ffffff;
+color: #0f2027;
+box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+transform: translateY(-2px);
+}
+
+.back-link:hover i {
+transform: translateX(-4px);
+}
+
+/* GLASS CARD */
+
+.contact-wrapper{
+width:95%;
+max-width:1200px;
+backdrop-filter:blur(20px);
+background:rgba(255,255,255,0.08);
+border-radius:20px;
+box-shadow:0 0 40px rgba(0,0,0,0.4);
+display:grid;
+grid-template-columns:1fr 1fr;
+overflow:hidden;
+animation:fadeIn 1s ease;
+}
+
+/* LEFT SIDE */
+
+.left-side{
+padding:50px 60px;
+color:#fff;
+background:url("{{ url_for('static', filename='images/contact-bg.jpg') }}") center/cover;
+position:relative;
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+}
+
+.left-side::before{
+content:"";
+position:absolute;
+inset:0;
+background:rgba(0,0,0,0.65);
+}
+
+.left-content{
+position:relative;
+z-index:2;
+}
+
+.left-content h2{
+font-size:36px;
+margin-bottom:20px;
+}
+
+.info{
+margin:20px 0;
+line-height:1.8;
+}
+
+/* RIGHT SIDE */
+
+.right-side{
+background:#fff;
+padding:60px;
+position:relative;
+}
+
+/* FLOATING LABEL INPUT */
+
+.input-group{
+position:relative;
+margin-bottom:25px;
+}
+
+.input-group input,
+.input-group textarea{
+width:100%;
+padding:14px;
+border:none;
+border-bottom:2px solid #ccc;
+outline:none;
+font-size:15px;
+background: transparent;
+}
+
+.input-group label{
+position:absolute;
+top:14px;
+left:0;
+color:#777;
+transition:0.3s;
+pointer-events: none;
+}
+
+.input-group input:focus + label,
+.input-group textarea:focus + label,
+.input-group input:valid + label,
+.input-group textarea:valid + label{
+top:-10px;
+font-size:12px;
+color:#007bff;
+}
+
+/* BUTTON */
+
+.btn{
+width:100%;
+padding:15px;
+border:none;
+background:linear-gradient(45deg,#00c6ff,#0072ff);
+color:#fff;
+font-size:16px;
+border-radius:30px;
+cursor:pointer;
+transition:0.3s;
+}
+
+.btn:hover{
+transform:scale(1.05);
+box-shadow:0 0 15px #0072ff;
+}
+
+/* SUCCESS POPUP */
+
+.popup{
+display:none;
+position:fixed;
+top:30px;
+right:30px;
+background:#00c851;
+color:#fff;
+padding:15px 25px;
+border-radius:8px;
+box-shadow:0 0 15px rgba(0,0,0,0.3);
+z-index: 1000;
+}
+
+/* WHATSAPP BUTTON */
+
+.floating-social{
+position:fixed;
+right:25px;
+bottom:25px;
+display:flex;
+flex-direction:column;
+gap:15px;
+z-index:999;
+}
+
+/* COMMON STYLE */
+
+.floating-social a{
+width:60px;
+height:60px;
+display:flex;
+align-items:center;
+justify-content:center;
+border-radius:50%;
+color:#fff;
+font-size:26px;
+text-decoration:none;
+box-shadow:0 10px 25px rgba(0,0,0,0.3);
+transition:0.3s;
+}
+
+/* BRAND COLORS */
+
+.whatsapp{background:#25D366;}
+.facebook{background:#1877F2;}
+.instagram{
+background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);
+}
+.linkedin{background:#0A66C2;}
+
+/* HOVER */
+
+.floating-social a:hover{
+transform:scale(1.12) translateY(-4px);
+box-shadow:0 15px 30px rgba(0,0,0,0.4);
+}
+/* MAP */
+
+iframe{
+width:100%;
+height:200px;
+border:0;
+margin-top:25px;
+border-radius:12px;
+}
+
+/* ANIMATION */
+
+@keyframes fadeIn{
+from{opacity:0;transform:translateY(30px);}
+to{opacity:1;transform:translateY(0);}
+}
+
+@media(max-width:900px){
+.contact-wrapper{grid-template-columns:1fr;}
+.left-side{display:none;}
+.back-btn-container.mobile-only {
+display: block;
+margin-bottom: 25px;
+}
+.back-btn-container.mobile-only .back-link {
+background: rgba(15, 32, 39, 0.08);
+color: #0f2027;
+border: 1px solid rgba(15, 32, 39, 0.15);
+}
+.back-btn-container.mobile-only .back-link:hover {
+background: #0f2027;
+color: #ffffff;
+}
+.right-side {
+padding: 40px 30px;
+}
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="contact-wrapper">
+
+<!-- LEFT -->
+
+<div class="left-side">
+<!-- Desktop Back Button Position -->
+<div class="back-btn-container">
+<a href="/posp" class="back-link">
+<i class="fa-solid fa-arrow-left"></i> Go Back to Home Page
+</a>
+</div>
+
+<div class="left-content">
+
+<h2>Let’s Secure Your Future</h2>
+
+<div class="info">
+<i class="fa fa-location-dot"></i> Gurugram, India<br>
+<i class="fa fa-phone"></i> +91 9911560303<br>
+<i class="fa fa-envelope"></i> hello@crestinsure.com
+</div>
+
+<lottie-player src="https://assets7.lottiefiles.com/packages/lf20_u8o7BL.json"
+background="transparent" speed="1" style="width:100%;max-width:320px;" loop autoplay>
+</lottie-player>
+
+</div>
+</div>
+
+<!-- RIGHT -->
+
+<div class="right-side">
+
+<!-- Mobile Back Button Position (visible only on small viewports) -->
+<div class="back-btn-container mobile-only">
+<a href="/posp" class="back-link">
+<i class="fa-solid fa-arrow-left"></i> Go Back to Home Page
+</a>
+</div>
+
+<h2>Send Message</h2>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% for category, message in messages %}
+<div class="popup" id="popup">{{message}}</div>
+<script>document.getElementById("popup").style.display="block";</script>
+{% endfor %}
+{% endwith %}
+
+<form method="POST">
+
+<div class="input-group">
+<input type="text" name="name" required>
+<label>Your Name</label>
+</div>
+
+<div class="input-group">
+<input type="email" name="email" required>
+<label>Your Email</label>
+</div>
+
+<div class="input-group">
+<input type="text" name="phone">
+<label>Mobile Number</label>
+</div>
+
+<div class="input-group">
+<textarea name="message" rows="4" required></textarea>
+<label>Your Message</label>
+</div>
+
+<button class="btn">Send Message</button>
+
+</form>
+
+<iframe src="https://maps.google.com/maps?q=gurgaon&t=&z=13&ie=UTF8&iwloc=&output=embed"></iframe>
+
+</div>
+
+</div>
+
+<div class="floating-social">
+
+  <a href="https://wa.me/919911560303" class="whatsapp" target="_blank">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  <a href="https://www.facebook.com/" class="facebook" target="_blank">
+    <i class="fab fa-facebook-f"></i>
+  </a>
+
+  <a href="https://www.instagram.com/" class="instagram" target="_blank">
+    <i class="fab fa-instagram"></i>
+  </a>
+
+  <a href="https://www.linkedin.com/" class="linkedin" target="_blank">
+    <i class="fab fa-linkedin-in"></i>
+  </a>
+
+</div>
+</body>
+</html>

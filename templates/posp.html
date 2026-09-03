@@ -1,0 +1,1915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Crest Insure</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" sizes="640px" href="{{ url_for('static', filename='images/crest_logo.png') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Great+Vibes&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+
+
+<header class="site-header">
+    <div class="header-container">
+
+        <!-- Logo -->
+        <div class="logo">
+            <img src="{{ url_for('static', filename='images/crest_logo.png') }}" alt="Crest Insure">
+
+            <div class="logo-text">
+                <div class="brand-name">
+                    <span class="crest-text">Crest</span> Insure
+                </div>
+                <div class="tagline">Simplifying Insurance</div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="nav-links">
+
+            <!-- Benefits -->
+            <div class="nav-item dropdown">
+                <a href="#">Benefits</a>
+                <div class="dropdown-menu">
+                    <p class="dropdown-title">EXPLORE BENEFITS</p>
+                    <a href="{{ url_for('benefits') }}">High Commissions</a>
+                    <a href="{{ url_for('benefits') }}">Flexible Work</a>
+                    <a href="{{ url_for('benefits') }}">Zero Investment</a>
+                    <a href="{{ url_for('benefits') }}">Renewal Income</a>
+                </div>
+            </div>
+
+            <!-- Products -->
+            <div class="nav-item dropdown">
+                <a href="#">Products</a>
+                <div class="dropdown-menu">
+                    <p class="dropdown-title">EXPLORE PRODUCTS</p>
+                    <a href="{{ url_for('products') }}">Life Insurance</a>
+                    <a href="{{ url_for('products') }}">Health Insurance</a>
+                    <a href="{{ url_for('products') }}">Motor Insurance</a>
+                    <a href="{{ url_for('products') }}">Travel Insurance</a>
+                </div>
+            </div>
+
+            <a href="{{ url_for('about_us') }}">About Us</a>
+            <a href="{{ url_for('contact') }}">Contact Us</a>
+        </nav>
+
+        <!-- Right Section -->
+        <div class="right-section">
+
+
+            <div class="auth-buttons">
+                <a href="{{ url_for('login') }}" class="btn-login">Agent Login</a>
+                <a href="{{ url_for('signup') }}" class="btn-signup">Sign Up</a>
+            </div>
+
+        </div>
+
+    </div>
+</header>
+
+<style>.site-header {
+    position: sticky;
+    top: 0;
+    background: #ffffff;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    z-index: 1000;
+}
+
+.header-container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+/* LOGO IMAGE */
+.logo img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    border-radius: 50%;
+    box-shadow: 10px 14px 8px rgba(10,0,0,0.45);
+}
+
+/* TEXT BLOCK */
+.logo-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* BRAND NAME */
+.brand-name {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    line-height: 1.1;
+    color: #222;
+}
+
+.crest-text {
+    color: #00AEEF;
+}
+
+/* TAGLINE */
+.tagline {
+    margin-top: 4px;
+    font-size: 15px;
+    color: #7c6cff;
+    font-style: italic;
+    font-family: 'Great Vibes', cursive;
+    letter-spacing: 0.6px;
+}
+
+
+
+
+.nav-links {
+    display: flex;
+    gap: 50px;
+    align-items: center;
+    border: 1px solid #f70b07;
+    border-radius: 10px;
+    position: relative;
+    
+}
+
+/* LINKS */
+.nav-links a {
+    position: relative;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+    transition: 0.93s ease;
+}
+
+/* HOVER COLOR */
+.nav-links a:hover {
+    color: #906f01fb;
+}
+
+/* ANIMATED UNDERLINE */
+.nav-links a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 0%;
+    height: 2px;
+    background: linear-gradient(90deg, #00AEEF, #7c6cff);
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+.nav-links a.active {
+    color: #121212;
+    font-weight: 600;
+}
+
+.nav-links a.active::after {
+    width: 100%;
+}
+nav {
+    backdrop-filter: blur(12px);
+    background: rgba(172, 197, 232, 0.7);
+    padding: 14px 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.38);
+}
+.dropdown {
+    position: relative;
+}
+
+/* DROPDOWN BOX */
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    margin-top: 10px;
+    left: 0;
+    width: 260px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 14px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+
+    opacity: 0;
+    transform: translateY(10px);
+    pointer-events: none;
+    transition: 0.25s ease;
+}
+
+/* SHOW DROPDOWN */
+.dropdown:hover .dropdown-menu {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+/* TITLE */
+.dropdown-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #888;
+    margin-bottom: 12px;
+}
+
+/* LINKS */
+.dropdown-menu a {
+    display: block;
+    padding: 10px 0;
+    color: #222;
+    transition: 0.2s;
+}
+
+.dropdown-menu a:hover {
+    color: #2a7cff;
+    transform: translateX(5px);
+}
+.dropdown::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 12px;
+}
+
+/* AUTH BUTTONS */
+.auth-buttons {
+    display: flex;
+    gap: 12px;
+}
+
+.btn-login {
+    padding: 8px 16px;
+    border: 1px solid #2a7cff;
+    color: #2a7cff;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.btn-login:hover {
+    background: #2a7cff;
+    color: #fff;
+}
+
+.btn-signup {
+    padding: 9px 18px;
+    background: #2a7cff;
+    color: #fff;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.btn-signup:hover {
+    background: #1e5fd6;
+}
+
+/* MOBILE */
+@media (max-width: 900px) {
+    .nav-links {
+        display: none;
+    }
+}
+</style>
+
+<body>
+
+
+<div id="ecosystem-hero-section">
+    <style>
+        #ecosystem-hero-section {
+            position: relative;
+            width: 100%;
+            min-height: 100vh;
+            background: radial-gradient(circle at center, #0f172a 0%, #090d16 100%);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            overflow: hidden;
+            color: #f8fafc;
+        }
+
+        #ecosystem-hero-section :root {
+            --primary: #38bdf8;   
+            --secondary: #34d399; 
+            --danger: #f87171;    
+            --bg-dark: #0f172a;
+            --glass-bg: rgba(15, 23, 42, 0.65);     
+            --glass-border: rgba(255, 255, 255, 0.08); 
+        }
+
+        #ecosystem-hero-section * {
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        #canvas-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        /* --- HERO & INTERACTIVE CONTENT OVERLAY --- */
+        .hero-layout {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 120px 4% 40px 4%;
+            pointer-events: none;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 100vh;
+            align-items: center;
+        }
+
+        .hero-text {
+            max-width: 520px;
+        }
+
+        .hero-text h2 {
+            font-size: 3.2rem;
+            font-weight: 900;
+            line-height: 1.1;
+            letter-spacing: -1px;
+            margin-bottom: 15px;
+            color: #ffffff; 
+        }
+
+        .hero-text p {
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: #94a3b8; 
+            margin-bottom: 30px;
+        }
+
+        /* --- FLOATING INSURANCE CARDS (GLASSMORPHISM) --- */
+        .cards-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            justify-self: end;
+            pointer-events: auto;
+            max-height: 75vh;
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+
+        /* Scrollbar styling for cards panel if needed */
+        .cards-panel::-webkit-scrollbar {
+            width: 4px;
+        }
+        .cards-panel::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+
+        .insurance-card {
+            background: rgba(15, 23, 42, 0.65); 
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 16px 20px;
+            border-radius: 16px;
+            width: 340px;
+            cursor: pointer;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .insurance-card:hover {
+            transform: translateX(-10px) translateY(-2px);
+            background: rgba(30, 41, 59, 0.8); 
+            border-color: rgba(56, 189, 248, 0.4); 
+            box-shadow: 0 20px 40px rgba(56, 189, 248, 0.12);
+        }
+
+        .card-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .card-icon.life { background: #0284c7; }
+        .card-icon.health { background: #ef4444; }
+        .card-icon.motor { background: #10b981; }
+        .card-icon.aviation { background: #f59e0b; }
+        .card-icon.building { background: #8b5cf6; }
+
+        .card-info h3 { font-size: 1rem; font-weight: 700; margin-bottom: 2px; color: #ffffff; }
+        .card-info p { font-size: 0.8rem; color: #94a3b8; margin: 0; }
+
+        /* --- ANIMATED STATISTICS MATRIX --- */
+        .stats-matrix {
+            grid-column: span 2;
+            display: flex;
+            gap: 60px;
+            margin-top: 20px;
+            background: rgba(15, 23, 42, 0.4); 
+            padding: 20px;
+            border-radius: 20px;
+            backdrop-filter: blur(5px);
+            align-self: end;
+            width: max-content;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .stat-node { display: flex; flex-direction: column; }
+        .stat-val { font-size: 1.8rem; font-weight: 800; color: #ffffff; }
+        .stat-lbl { font-size: 0.8rem; color: #64748b; font-weight: 600; text-transform: uppercase; }
+
+        /* --- MOBILE RESPONSIVE LAYOUT OVERRIDES --- */
+        @media(max-width: 968px) {
+            .hero-layout {
+                grid-template-columns: 1fr;
+                padding-top: 90px;
+                height: auto;
+                gap: 30px;
+                text-align: center;
+                justify-items: center;
+            }
+            .hero-text { max-width: 100%; }
+            .hero-text h2 { font-size: 2.3rem; }
+            .cards-panel { justify-self: center; width: 100%; align-items: center; max-height: none; overflow: visible;}
+            .insurance-card { width: 100%; max-width: 340px; }
+            .stats-matrix { grid-column: span 1; gap: 30px; width: 100%; justify-content: center; align-self: auto; margin-top: 10px; }
+        }
+    </style>
+
+    <main class="hero-layout">
+        <section class="hero-text">
+            <h2>Adaptive Risk Protection.</h2>
+            <p>Deploy integrated algorithmic coverages designed to seamlessly protect your physical assets, corporate infrastructure, aviation fleets, and your family line with real-time risk mitigation.</p>
+        </section>
+
+        <section class="cards-panel">
+            <div class="insurance-card" onclick="highlightZone('life')">
+                <div class="card-icon life">👪</div>
+                <div class="card-info">
+                    <h3>Health & Life</h3>
+                    <p>Capital asset succession & lineage defense</p>
+                </div>
+            </div>
+            <div class="insurance-card" onclick="highlightZone('health')">
+                <div class="card-icon health">🏥</div>
+                <div class="card-info">
+                    <h3>Clinical & Hospital Core</h3>
+                    <p>Real-time institutional health mitigation</p>
+                </div>
+            </div>
+            <div class="insurance-card" onclick="highlightZone('motor')">
+                <div class="card-icon motor">🚗</div>
+                <div class="card-info">
+                    <h3>Dynamic Motor Policy</h3>
+                    <p>Smart asset perimeter defense networks</p>
+                </div>
+            </div>
+            <div class="insurance-card" onclick="highlightZone('aviation')">
+                <div class="card-icon aviation">✈️</div>
+                <div class="card-info">
+                    <h3>Aviation Transit Matrix</h3>
+                    <p>Global aerospace flight risk algorithms</p>
+                </div>
+            </div>
+            <div class="insurance-card" onclick="highlightZone('building')">
+                <div class="card-icon building">🏢</div>
+                <div class="card-info">
+                    <h3>Infrastructure & Core Assets</h3>
+                    <p>Commercial complex asset security</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="stats-matrix">
+            <div class="stat-node">
+                <span class="stat-val" id="stat-claims">0</span>
+                <span class="stat-lbl">Claims Approved</span>
+            </div>
+            <div class="stat-node">
+                <span class="stat-val" id="stat-sec">0</span>
+                <span class="stat-lbl">Secured Capital</span>
+            </div>
+        </section>
+    </main>
+
+    <div id="canvas-container"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+
+    <script>
+        (function() {
+            const container = document.getElementById('canvas-container');
+            if(!container) return;
+
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
+            camera.position.set(0, 18, 32);
+
+            const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "high-performance" });
+            renderer.setSize(container.clientWidth, container.clientHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            renderer.shadowMap.enabled = true;
+            renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+            container.appendChild(renderer.domElement);
+
+            const controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+            controls.dampingFactor = 0.05;
+            controls.maxPolarAngle = Math.PI / 2 - 0.1;
+            controls.minDistance = 12;
+            controls.maxDistance = 55;
+
+            // --- ADVANCED ENVIRONMENT LIGHTING ---
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.45); 
+            scene.add(ambientLight);
+
+            const studioLight = new THREE.DirectionalLight(0xffffff, 1.8); 
+            studioLight.position.set(25, 40, 20);
+            studioLight.castShadow = true;
+            studioLight.shadow.mapSize.width = 2048;
+            studioLight.shadow.mapSize.height = 2048;
+            scene.add(studioLight);
+
+            const ecosystemGlow = new THREE.PointLight(0x38bdf8, 3.5, 35); 
+            ecosystemGlow.position.set(0, 2, 0);
+            scene.add(ecosystemGlow);
+
+            // --- NEBULA PARTICLE SYSTEM ---
+            const particleCount = 1200;
+            const particleGeo = new THREE.BufferGeometry();
+            const positions = new Float32Array(particleCount * 3);
+            const randomSpeeds = new Float32Array(particleCount);
+            
+            for(let i=0; i<particleCount*3; i+=3) {
+                let angle = Math.random() * Math.PI * 2;
+                let radius = 3 + Math.random() * 14;
+                positions[i] = Math.cos(angle) * radius;
+                positions[i+1] = Math.random() * 10 - 2;
+                positions[i+2] = Math.sin(angle) * radius;
+                randomSpeeds[i/3] = 0.01 + Math.random() * 0.02;
+            }
+            
+            particleGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            const particleMat = new THREE.PointsMaterial({
+                color: 0x38bdf8,
+                size: 0.18,
+                transparent: true,
+                opacity: 0.7, 
+                blending: THREE.AdditiveBlending
+            });
+            const nebulaParticles = new THREE.Points(particleGeo, particleMat);
+            scene.add(nebulaParticles);
+
+            // --- DYNAMIC ECOSYSTEM MODULES ---
+            const masterPlatform = new THREE.Group();
+            scene.add(masterPlatform);
+
+            const floor = new THREE.Mesh(
+                new THREE.CylinderGeometry(12, 12.5, 0.6, 64),
+                new THREE.MeshStandardMaterial({ color: 0x1e293b, roughness: 0.2, metalness: 0.5 }) 
+            );
+            floor.receiveShadow = true;
+            masterPlatform.add(floor);
+
+            const highwayTrack = new THREE.Mesh(
+                new THREE.RingGeometry(9.5, 10.3, 64),
+                new THREE.MeshBasicMaterial({ color: 0x334155, side: THREE.DoubleSide }) 
+            );
+            highwayTrack.rotateX(-Math.PI/2);
+            highwayTrack.position.y = 0.32;
+            masterPlatform.add(highwayTrack);
+
+            // --- 1. LIFE ZONE (With Family Members: Parent 1, Parent 2, Child) ---
+            const lifeModule = new THREE.Group();
+            lifeModule.position.set(4, 0, -3);
+            
+            const lifeShield = new THREE.Mesh(
+                new THREE.SphereGeometry(2.8, 32, 16, 0, Math.PI*2, 0, Math.PI/2.2),
+                new THREE.MeshStandardMaterial({ color: 0x0284c7, transparent: true, opacity: 0.2, side: THREE.DoubleSide, roughness: 0.1 })
+            );
+            lifeShield.position.y = 0.3;
+            lifeModule.add(lifeShield);
+
+            // Family Group Generation
+            const familyGroup = new THREE.Group();
+            familyGroup.position.y = 0.3;
+            
+            const parentMat1 = new THREE.MeshStandardMaterial({ color: 0x38bdf8, roughness: 0.3 });
+            const parentMat2 = new THREE.MeshStandardMaterial({ color: 0xf472b6, roughness: 0.3 });
+            const childMat = new THREE.MeshStandardMaterial({ color: 0xfbbf24, roughness: 0.2 });
+
+            // Parent 1
+            const p1Geo = new THREE.CylinderGeometry(0.18, 0.25, 1.4, 12);
+            const p1Mesh = new THREE.Mesh(p1Geo, parentMat1);
+            p1Mesh.position.set(-0.35, 0.7, 0);
+            const p1Head = new THREE.Mesh(new THREE.SphereGeometry(0.18, 12, 12), parentMat1);
+            p1Head.position.set(-0.35, 1.5, 0);
+            familyGroup.add(p1Mesh, p1Head);
+
+            // Parent 2
+            const p2Geo = new THREE.CylinderGeometry(0.16, 0.24, 1.3, 12);
+            const p2Mesh = new THREE.Mesh(p2Geo, parentMat2);
+            p2Mesh.position.set(0.35, 0.65, 0);
+            const p2Head = new THREE.Mesh(new THREE.SphereGeometry(0.17, 12, 12), parentMat2);
+            p2Head.position.set(0.35, 1.4, 0);
+            familyGroup.add(p2Mesh, p2Head);
+
+            // Child
+            const childGeo = new THREE.CylinderGeometry(0.12, 0.18, 0.8, 12);
+            const childMesh = new THREE.Mesh(childGeo, childMat);
+            childMesh.position.set(0, 0.4, 0.3);
+            const childHead = new THREE.Mesh(new THREE.SphereGeometry(0.13, 12, 12), childMat);
+            childHead.position.set(0, 0.9, 0.3);
+            familyGroup.add(childMesh, childHead);
+
+            lifeModule.add(familyGroup);
+            masterPlatform.add(lifeModule);
+
+            // --- 2. HEALTH ZONE (With Corporate Hospital Building) ---
+            const healthModule = new THREE.Group();
+            healthModule.position.set(-4.5, 0, 4);
+
+            // Hospital Building Base & Towers
+            const hospitalGroup = new THREE.Group();
+            const buildingMat = new THREE.MeshStandardMaterial({ color: 0x0f172a, roughness: 0.3, metalness: 0.6 });
+            const glassWindowsMat = new THREE.MeshStandardMaterial({ color: 0x38bdf8, emissive: 0x0369a1, roughness: 0.1 });
+            const crossMat = new THREE.MeshBasicMaterial({ color:  0xef4444 });
+
+            const mainBlock = new THREE.Mesh(new THREE.BoxGeometry(2.4, 1.6, 1.6), buildingMat);
+            mainBlock.position.y = 0.8;
+            
+            const towerBlock = new THREE.Mesh(new THREE.BoxGeometry(1.2, 2.8, 1.4), buildingMat);
+            towerBlock.position.set(-0.4, 1.4, -0.1);
+            
+            // Decorative Glowing Clinical Windows lines
+            const windowLine = new THREE.Mesh(new THREE.BoxGeometry(2.42, 0.15, 1.62), glassWindowsMat);
+            windowLine.position.y = 0.9;
+            const windowLine2 = new THREE.Mesh(new THREE.BoxGeometry(1.22, 0.15, 1.42), glassWindowsMat);
+            windowLine2.position.set(-0.4, 2.2, -0.1);
+
+            // Hospital Red Emergency Cross Logo
+            const crossGroup = new THREE.Group();
+            const hPart = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.14, 0.1), crossMat);
+            const vPart = new THREE.Mesh(new THREE.BoxGeometry(0.14, 0.5, 0.1), crossMat);
+            crossGroup.add(hPart, vPart);
+            crossGroup.position.set(0.4, 1.1, 0.82);
+
+            hospitalGroup.add(mainBlock, towerBlock, windowLine, windowLine2, crossGroup);
+            hospitalGroup.scale.set(0.85, 0.85, 0.85);
+            healthModule.add(hospitalGroup);
+            masterPlatform.add(healthModule);
+
+            // --- 3. MOTOR VEHICLE ZONE (Rotates on Track) ---
+            const motorVehicle = new THREE.Group();
+            const carCore = new THREE.Mesh(new THREE.BoxGeometry(1.6, 0.45, 0.85), new THREE.MeshStandardMaterial({ color: 0x10b981, roughness: 0.2 }));
+            carCore.position.y = 0.22;
+            const carTop = new THREE.Mesh(new THREE.BoxGeometry(0.8, 0.35, 0.7), new THREE.MeshStandardMaterial({ color: 0x0f172a }));
+            carTop.position.set(-0.1, 0.6, 0);
+            motorVehicle.add(carCore, carTop);
+            scene.add(motorVehicle);
+
+            // --- 4. AIRPLANE (Independent Outer Atmospheric Flight Path) ---
+            const airplaneModule = new THREE.Group();
+            const planeMat = new THREE.MeshStandardMaterial({ color: '#f8fafc', metalness: 0.7, roughness: 0.2 });
+            const planeAccent = new THREE.MeshStandardMaterial({ color: '#f59e0b' });
+
+            // Fuselage
+            const bodyMesh = new THREE.Mesh(new THREE.CylinderGeometry(0.14, 0.14, 2, 12), planeMat);
+            bodyMesh.rotation.x = Math.PI / 2;
+            airplaneModule.add(bodyMesh);
+
+            // Main Wings
+            const wingGeo = new THREE.BoxGeometry(2.2, 0.03, 0.35);
+            const wings = new THREE.Mesh(wingGeo, planeMat);
+            wings.position.set(0, 0, 0.1);
+            airplaneModule.add(wings);
+
+            // Tail fins
+            const tailGeo = new THREE.BoxGeometry(0.6, 0.03, 0.15);
+            const tailWings = new THREE.Mesh(tailGeo, planeMat);
+            tailWings.position.set(0, 0, -0.8);
+            
+            const verticalFin = new THREE.Mesh(new THREE.BoxGeometry(0.03, 0.35, 0.2), planeAccent);
+            verticalFin.position.set(0, 0.2, -0.85);
+            airplaneModule.add(tailWings, verticalFin);
+            
+            scene.add(airplaneModule);
+
+            // --- 5. INFRASTRUCTURE ASSET BUILDING ---
+            const infrastructureModule = new THREE.Group();
+            infrastructureModule.position.set(0, 0, 5);
+            const corpMat = new THREE.MeshStandardMaterial({ color: 0x334155, metalness: 0.6, roughness: 0.2 });
+            const glassMat = new THREE.MeshStandardMaterial({ color: 0x8b5cf6, emissive: 0x4c1d95, roughness: 0.1 });
+            
+            const b1 = new THREE.Mesh(new THREE.BoxGeometry(1.5, 3.2, 1.2), corpMat);
+            b1.position.y = 1.6;
+            const b1Windows = new THREE.Mesh(new THREE.BoxGeometry(1.52, 2.5, 0.9), glassMat);
+            b1Windows.position.set(0, 1.6, 0);
+            
+            infrastructureModule.add(b1, b1Windows);
+            infrastructureModule.scale.set(0.75, 0.75, 0.75);
+            masterPlatform.add(infrastructureModule);
+
+
+            // --- GLOBAL INTERACTIVE TRIGGERS ---
+            let activeTriggerZone = null;
+            let actionTime = 0;
+
+            window.highlightZone = function(zone) {
+                actionTime = 0;
+                if (zone === 'life') activeTriggerZone = lifeModule;
+                if (zone === 'health') activeTriggerZone = healthModule;
+                if (zone === 'motor') activeTriggerZone = motorVehicle;
+                if (zone === 'aviation') activeTriggerZone = airplaneModule;
+                if (zone === 'building') activeTriggerZone = infrastructureModule;
+            };
+
+            // --- STATISTICS LIFE COUNTER ---
+            function animateStatistics(id, finalValue, duration, suffix = "") {
+                const el = document.getElementById(id);
+                if(!el) return;
+                let startTime = null;
+
+                function step(timestamp) {
+                    if (!startTime) startTime = timestamp;
+                    const progress = Math.min((timestamp - startTime) / duration, 1);
+                    el.innerText = Math.floor(progress * finalValue).toLocaleString() + suffix;
+                    if (progress < 1) window.requestAnimationFrame(step);
+                }
+                window.requestAnimationFrame(step);
+            }
+
+            setTimeout(() => {
+                animateStatistics('stat-claims', 99.6, 2000, "%");
+                animateStatistics('stat-sec', 750000, 2500, " INR");
+            }, 500);
+
+            // --- ANIMATION RUNTIME LOOP ---
+            const clock = new THREE.Clock();
+
+            function animate() {
+                requestAnimationFrame(animate);
+                const time = clock.getElapsedTime();
+
+                // Nebular particles system rotation
+                const coords = nebulaParticles.geometry.attributes.position.array;
+                for(let i=1; i<coords.length; i+=3) {
+                    coords[i] += randomSpeeds[(i-1)/3];
+                    if(coords[i] > 8) coords[i] = -2; 
+                }
+                nebulaParticles.geometry.attributes.position.needsUpdate = true;
+                nebulaParticles.rotation.y = time * 0.02;
+
+                // Modules idle animation
+                healthModule.position.y = Math.sin(time * 1.2) * 0.12;
+                lifeModule.position.y = Math.cos(time * 1.0) * 0.1;
+                infrastructureModule.position.y = Math.sin(time * 0.8) * 0.08;
+
+                // Motor vehicle highway track translation
+                const motorAngle = -time * 0.32;
+                motorVehicle.position.x = Math.cos(motorAngle) * 9.9;
+                motorVehicle.position.z = Math.sin(motorAngle) * 9.9;
+                motorVehicle.rotation.y = -motorAngle + Math.PI / 2;
+
+                // Airplane structural flight coordinate path calculation
+                const planeAngle = time * 0.25;
+                const flightRadius = 14.0;
+                airplaneModule.position.x = Math.cos(planeAngle) * flightRadius;
+                airplaneModule.position.z = Math.sin(planeAngle) * flightRadius;
+                airplaneModule.position.y = 7.5 + Math.sin(time * 1.5) * 1.2; 
+                airplaneModule.rotation.y = -planeAngle - Math.PI / 2;
+                airplaneModule.rotation.z = Math.sin(time * 1.5) * 0.15; // Wing banking effect
+
+                // Card interaction bouncing animation logic
+                if(activeTriggerZone) {
+                    actionTime += 0.15;
+                    let bounceVal = Math.abs(Math.sin(actionTime)) * 2.0;
+                    
+                    if (activeTriggerZone === motorVehicle || activeTriggerZone === airplaneModule) {
+                        activeTriggerZone.position.y += bounceVal;
+                    } else {
+                        activeTriggerZone.position.y = bounceVal;
+                    }
+                    if(actionTime >= Math.PI) activeTriggerZone = null;
+                }
+
+                masterPlatform.rotation.y = time * 0.03;
+
+                controls.update();
+                renderer.render(scene, camera);
+            }
+
+            window.addEventListener('resize', () => {
+                camera.aspect = container.clientWidth / container.clientHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(container.clientWidth, container.clientHeight);
+            });
+
+            animate();
+        })();
+    </script>
+</div>
+<style>body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f9fbff;
+    color: #222;
+}
+
+/* HERO */
+.hero {
+    display: flex;
+    justify-content: space-between;
+    padding: 60px 10%;
+    background: linear-gradient(90deg, #fef1f6, #fff7e6);
+}
+
+.hero-content {
+    max-width: 2020px;
+}
+
+.hero h1 span {
+    color: #2a7cff;
+}
+
+.hero-form {
+    display: flex;
+    margin: 20px 0;
+}
+
+.hero-form input {
+    padding: 12px;
+    flex: 1;
+    border: 1px solid #ccc;
+}
+
+.hero-form button {
+    padding: 12px 20px;
+    border: none;
+    background: #2a7cff;
+    color: #fff;
+    cursor: pointer;
+}
+
+
+
+/* BENEFITS */
+.benefits {
+    padding: 60px 10%;
+    text-align: center;
+}
+
+.benefit-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.benefit-card {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+/* PRODUCTS */
+.products {
+    padding: 60px 10%;
+    background: #dbc4c4;
+    text-align: center;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 5px;
+}
+
+.product-card {
+    background: #0d4ac3;
+    padding: 20px 100px;
+    border-radius: 12px;
+    font-weight: 10;
+}
+
+/* POSP INFO */
+.posp-info {
+    padding: 60px 10%;
+    background: linear-gradient(180deg, #e9f7ff, #fff);
+}
+
+.posp-box {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    background: #fff;
+    padding: 30px;
+    border-radius: 15px;
+}
+
+.posp-box img {
+    width: 140px;
+}
+
+/* FOOTER */
+footer {
+    background: #000;
+    color: #fff;
+    text-align: center;
+    padding: 15px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+    .hero {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .benefit-grid,
+    .product-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .posp-box {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+.why-us {
+    padding: 60px 10%;
+    background: #f7fbff;
+    text-align: center;
+}
+
+.why-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.why-card {
+    background: #fff;
+    padding: 18px;
+    border-radius: 10px;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.product-card {
+    background: #fff;
+    border-radius: 14px;
+    padding: 10px 10px;
+    text-align: center;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.product-card i {
+    font-size: 25px;
+    color: #2a7cff;
+    margin-bottom: 12px;
+}
+
+.product-card span {
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.product-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 25px rgba(42,124,255,0.25);
+}
+
+</style>
+
+
+
+
+
+
+<!-- HERO SECTION -->
+<section class="hero">
+
+
+    <div class="hero-teft">
+
+        <h1 class="hero-title">
+            <p>Earn unlimited income by selling insurance online</p>
+            <span class="rotator" id="rotator">
+                <span class="rotating-word active">Easy</span>
+                <span class="rotating-word">Simple</span>
+                <span class="rotating-word">Convenient</span>
+            </span>
+        </h1>
+        
+    </div>
+    <div class="hero-content">
+        
+        <h1>Become a <span>POSP Insurance Agent</span></h1>
+        
+
+    <form method="POST" action="/capture-mobile" class="hero-form">
+        <input type="text" name="mobile" placeholder="Enter Mobile Number" required pattern="[0-9]{10}">
+        <button type="submit">Start Earning Now</button>
+    </form>
+
+
+        <small>By continuing, you agree to our Terms & Conditions</small>
+    </div>
+
+
+</section>
+<style>.hero-title {
+    font-size: 50px;
+    font-weight: 1000;
+    color: #111;
+}
+
+/* ROTATOR BOX */
+.rotator {
+    display: inline-block;
+    position: relative;
+    height: 0.2em;
+    min-width: 380px;   /* IMPORTANT → prevents jump */
+}
+
+/* WORD BASE */
+.rotating-word {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    opacity: 0;
+    transform: translateY(40px) scale(0.85);
+    filter: blur(18px);
+    transition: all 0.5s ease;
+
+    /* GRADIENT TEXT FIX */
+    background: linear-gradient(90deg, #4A90E2, #2ECC71, #F5A623);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* ACTIVE WORD */
+.rotating-word.active {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+}
+
+/* EXIT */
+.rotating-word.exit {
+    opacity: 0;
+    transform: translateY(-40px) scale(0.95);
+    filter: blur(6px);
+}
+</style>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const words = document.querySelectorAll(".rotating-word");
+    let current = 0;
+
+    function rotateWords() {
+
+        words[current].classList.remove("active");
+        words[current].classList.add("exit");
+
+        current = (current + 1) % words.length;
+
+        words[current].classList.add("active");
+
+        setTimeout(() => {
+            words.forEach(word => word.classList.remove("exit"));
+        }, 700);
+    }
+
+    let interval = setInterval(rotateWords, 2500);
+
+    const rotator = document.getElementById("rotator");
+
+    rotator.addEventListener("mouseenter", () => clearInterval(interval));
+
+    rotator.addEventListener("mouseleave", () => {
+        interval = setInterval(rotateWords, 2500);
+    });
+
+});
+</script>
+
+<!-- BENEFITS -->
+<section class="benefits">
+    <h2>Benefits of Becoming POSP Agent</h2>
+
+    <div class="benefit-grid">
+        <div class="benefit-card">
+            <h3>Training Support</h3>
+            <p>Expert guidance & certification</p>
+        </div>
+        <div class="benefit-card">
+            <h3>Instant Policies</h3>
+            <p>Quick and hassle-free issuance</p>
+        </div>
+        <div class="benefit-card">
+            <h3>Dedicated RM</h3>
+            <p>Personal relationship manager</p>
+        </div>
+        <div class="benefit-card">
+            <h3>Timely Payouts</h3>
+            <p>Guaranteed commissions</p>
+        </div>
+    </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="products">
+    <h2>What You Can Sell</h2>
+
+<div class="product-grid">
+    <div class="product-card">
+        <i class="fa-solid fa-heart-pulse"></i>
+        <span>Health Insurance</span>
+    </div>
+
+    <div class="product-card">
+        <i class="fa-solid fa-car"></i>
+        <span>Car Insurance</span>
+    </div>
+
+    <div class="product-card">
+        <i class="fa-solid fa-motorcycle"></i>
+        <span>Bike Insurance</span>
+    </div>
+
+    <div class="product-card">
+        <i class="fa-solid fa-hand-holding-heart"></i>
+        <span>Life Insurance</span>
+    </div>
+
+    <div class="product-card">
+        <i class="fa-solid fa-plane-departure"></i>
+        <span>Travel Insurance</span>
+    </div>
+</div>
+
+</section>
+
+<!-- POSP INFO -->
+<section class="posp-info">
+    <div class="posp-container">
+
+        <div class="posp-box">
+            <div class="posp-icon">
+                <img src="{{ url_for('static', filename='images/partners/agent.png') }}?v={{ time.time() }}" alt="POSP Agent">
+            </div>
+
+            <div class="posp-content">
+                <h2>What is <span>POSP?</span></h2>
+                <p>
+                    A <b>Point of Sales Person (POSP)</b> is an IRDAI-certified insurance agent
+                    authorized to sell insurance policies digitally.
+                </p>
+
+                <ul class="posp-points">
+                    <li>✔ Work 100% online</li>
+                    <li>✔ No office or paperwork required</li>
+                    <li>✔ Earn high commissions</li>
+                    <li>✔ Sell policies from top insurers</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</section>
+<style>
+    .posp-info {
+    padding: 90px 20px;
+    background: linear-gradient(135deg, #0f172a, #020617);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Soft glow */
+.posp-info::before {
+    content: "";
+    position: absolute;
+    width: 550px;
+    height: 550px;
+    background: radial-gradient(circle, rgba(37,99,235,0.35), transparent 70%);
+    top: -150px;
+    left: -150px;
+}
+
+.posp-container {
+    max-width: 2000px;
+    margin: auto;
+}
+
+.posp-box {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 18px;
+    padding: 40px;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+}
+
+/* Icon */
+.posp-icon {
+    background: linear-gradient(135deg, #2563eb, #22c55e);
+    padding: 18px;
+    border-radius: 50%;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.posp-icon img {
+    width: 90px;
+    height: 90px;
+}
+
+/* Content */
+.posp-content h2 {
+    font-size: 34px;
+    font-weight: 800;
+    color: #ffffff;
+    margin-bottom: 12px;
+}
+
+.posp-content h2 span {
+    background: linear-gradient(90deg, #60a5fa, #22c55e);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.posp-content p {
+    color: #cbd5f5;
+    font-size: 16px;
+    line-height: 1.7;
+    margin-bottom: 20px;
+}
+
+/* Bullet Points */
+.posp-points {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(180px, 1fr));
+    gap: 10px;
+}
+
+.posp-points li {
+    font-size: 14px;
+    color: #e2e8f0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .posp-box {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .posp-points {
+        grid-template-columns: 1fr;
+    }
+}
+
+</style>
+
+<section class="why-us">
+    <h2>Why Choose Crest Insure?</h2>
+
+    <div class="why-grid">
+        <div class="why-card">IRDAI Authorized POSP Model</div>
+        <div class="why-card">100% Digital & Paperless Process</div>
+        <div class="why-card">No Office Visit Required</div>
+        <div class="why-card">Sell Policies from Anywhere</div>
+        <div class="why-card">Zero Investment – Free Registration</div>
+        <div class="why-card">Fast Claim Support for Customers</div>
+    </div>
+</section>
+<section class="eligibility">
+    <h2>Who Can Become a POSP Agent?</h2>
+
+    <ul class="eligibility-list">
+        <li>✔ Age 18 years or above</li>
+        <li>✔ Minimum 10th pass</li>
+        <li>✔ Smartphone & Internet connection</li>
+        <li>✔ Pan Card & Aadhaar Card</li>
+        <li>✔ Passion to earn & grow</li>
+    </ul>
+</section>
+<style>.eligibility {
+    padding: 60px 10%;
+    background: #fff;
+}
+
+.eligibility-list {
+    max-width: 600px;
+    margin: auto;
+    font-size: 18px;
+    line-height: 2;
+}
+</style>
+
+<section class="how-it-works">
+    <h2>How It Works</h2>
+
+    <div class="steps">
+        <div class="step">1️⃣ Register using Mobile Number</div>
+        <div class="step">2️⃣ Complete POSP Training</div>
+        <div class="step">3️⃣ Pass Certification Exam</div>
+        <div class="step">4️⃣ Get Agent Code</div>
+        <div class="step">5️⃣ Start Selling & Earning</div>
+    </div>
+</section>
+<style>.how-it-works {
+    padding: 60px 10%;
+    background: #eef5ff;
+    text-align: center;
+}
+
+.steps {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 15px;
+}
+
+.step {
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    font-weight: 600;
+}
+</style>
+
+<section class="earnings">
+    <h2>How Much Can You Earn?</h2>
+    <p class="earn-text">
+        Earn <b>₹20,000 – ₹50,000+</b> per month depending on your efforts.
+    </p>
+
+    <div class="earn-grid">
+        <div>💰 High Commission</div>
+        <div>📈 No Income Limit</div>
+        <div>🏆 Performance Rewards</div>
+        <div>🎯 Monthly Incentives</div>
+    </div>
+</section>
+<style>.earnings {
+    padding: 60px 10%;
+    background: #fff7e6;
+    text-align: center;
+}
+
+.earn-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    font-weight: 600;
+}
+</style>
+
+
+<section class="cta">
+    <h2>Start Your Insurance Career Today</h2>
+    <p>No Fees • No Risk • Unlimited Earnings</p>
+    <button class="cta-btn onclick="window.location.href={ url_for('signup') }">Register Now</button>
+</section>
+<style>.cta {
+    padding: 60px 10%;
+    background: #2a7cff;
+    color: #fff;
+    text-align: center;
+}
+
+.cta-btn {
+    margin-top: 15px;
+    padding: 14px 30px;
+    border: none;
+    background: #fff;
+    color: #2a7cff;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 25px;
+}
+</style>
+
+<section class="partners-section">
+    <h2>Our Trusted Insurance Partners</h2>
+
+    <div class="partners-grid">
+
+    <!-- GENERAL / HEALTH -->
+    <a href="https://www.acko.com/" target="_blank" class="partner-card">
+        <img src="{{ url_for('static', filename='images/partners/acko.svg') }}?v={{ time.time() }}" alt="ACKO">
+    </a>
+
+    <a href="https://www.bajajallianz.com/" target="_blank" class="partner-card">
+        <img src="{{ url_for('static', filename='images/partners/bajaj-allianz.svg') }}?v={{ time.time() }}" alt="Bajaj Allianz">
+    </a>
+
+    <a href="https://www.bhartiaxa.com/" target="_blank" class="partner-card">
+        <img src="{{ url_for('static', filename='images/partners/bharti-axa.svg') }}" alt="Bharti AXA">
+    </a>
+
+    <a href="https://www.careinsurance.com/" target="_blank" class="partner-card">
+        <img src="{{ url_for('static', filename='images/partners/care-health.svg') }}" alt="Care Health">
+    </a>
+
+    <a href="https://www.cholainsurance.com/" target="_blank" class="partner-card">
+        <img src="{{ url_for('static', filename='images/partners/chola-ms.png') }}" alt="Chola MS">
+    </a>
+
+    <a href="https://general.futuregenerali.in/" target="_blank" class="partner-card">
+        <img src="{{ url_for('static', filename='images/partners/future-generali.svg') }}" alt="Future Generali">
+    </a>
+
+    <a href="https://www.godigit.com/" target="_blank" class="partner-card">
+        <img src="{{ url_for('static', filename='images/partners/digit.svg') }}" alt="Digit">
+    </a>
+
+    <a href="https://www.hdfclife.com/" target="_blank" class="partner-card">
+        <img src="{{ url_for('static', filename='images/partners/hdfc-life.png') }}" alt="HDFC Life">
+    </a>
+
+    <a href="https://www.hdfcergo.com/" target="_blank" class="partner-card">
+        <img src="{{ url_for('static', filename='images/partners/hdfc-ergo.png') }}" alt="HDFC ERGO">
+    </a>
+
+    <a href="https://www.icicilombard.com/" target="_blank" class="partner-card">
+        <img src="{{ url_for('static', filename='images/partners/icici-lombard.png') }}" alt="ICICI Lombard">
+    </a>
+
+    <a href="https://www.iciciprulife.com/" target="_blank" class="partner-card">
+        <img src="{{ url_for('static', filename='images/partners/icici-prudential.svg') }}" alt="ICICI Prudential">
+    </a>
+
+    <!-- LIFE / PSU -->
+    <a href="https://www.iffcotokio.co.in/" target="_blank" class="partner-card">
+        <img src="{{ url_for('static', filename='images/partners/iffco-tokio.png') }}" alt="IFFCO Tokio">
+    </a>
+
+    <a href="https://www.kotakgeneral.com/" target="_blank" class="partner-card">
+        <img src="{{ url_for('static', filename='images/partners/zurich-kotak.webp') }}" alt="Zurich Kotak">
+    </a>
+
+    <a href="https://www.libertyinsurance.in/" target="_blank" class="partner-card">
+        <img src="{{ url_for('static', filename='images/partners/liberty.avif') }}" alt="Liberty">
+    </a>
+
+    <a href="https://licindia.in/" target="_blank" class="partner-card">
+        <img src="{{ url_for('static', filename='images/partners/lic.svg') }}" alt="LIC">
+    </a>
+
+    <a href="https://www.magmahdi.com/" target="_blank" class="partner-card">
+        <img src="{{ url_for('static', filename='images/partners/magma-hdi.svg') }}" alt="Magma HDI">
+    </a>
+
+    <a href="https://www.manipalcigna.com/" target="_blank" class="partner-card">
+        <img src="{{ url_for('static', filename='images/partners/manipal-cigna.png') }}" alt="Manipal Cigna">
+    </a>
+
+    <a href="https://www.maxlifeinsurance.com/" target="_blank" class="partner-card">
+        <img src="{{ url_for('static', filename='images/partners/max-life.svg') }}" alt="Max Life">
+    </a>
+
+    <a href="https://nationalinsurance.nic.co.in/" target="_blank" class="partner-card">
+        <img src="{{ url_for('static', filename='images/partners/national-insurance.svg') }}" alt="National Insurance">
+    </a>
+
+    <a href="https://www.naviinsurance.com/" target="_blank" class="partner-card">
+        <img src="{{ url_for('static', filename='images/partners/navi.svg') }}" alt="Navi">
+    </a>
+
+    <a href="https://www.newindia.co.in/" target="_blank" class="partner-card">
+        <img src="{{ url_for('static', filename='images/partners/new-india.png') }}" alt="New India Assurance">
+    </a>
+
+    <a href="https://orientalinsurance.org.in/" target="_blank" class="partner-card">
+        <img src="{{ url_for('static', filename='images/partners/oriental.png') }}" alt="Oriental Insurance">
+    </a>
+
+    <a href="https://www.rahejaqbe.com/" target="_blank" class="partner-card">
+        <img src="{{ url_for('static', filename='images/partners/raheja-qbe.jpg') }}" alt="Raheja QBE">
+    </a>
+
+    <!-- OTHERS -->
+    <a href="https://www.reliancegeneral.co.in/" target="_blank" class="partner-card">
+        <img src="{{ url_for('static', filename='images/partners/reliance.webp') }}" alt="Reliance General">
+    </a>
+
+    <a href="https://www.royalsundaram.in/" target="_blank" class="partner-card">
+        <img src="{{ url_for('static', filename='images/partners/royal-sundaram.png') }}" alt="Royal Sundaram">
+    </a>
+
+    <a href="https://www.sbigeneral.in/" target="_blank" class="partner-card">
+        <img src="{{ url_for('static', filename='images/partners/sbi-general.svg') }}" alt="SBI General">
+    </a>
+
+    <a href="https://www.shriramgi.com/" target="_blank" class="partner-card">
+        <img src="{{ url_for('static', filename='images/partners/shriram.svg') }}" alt="Shriram General">
+    </a>
+
+    <a href="https://www.starhealth.in/" target="_blank" class="partner-card">
+        <img src="{{ url_for('static', filename='images/partners/star-health.svg') }}" alt="Star Health">
+    </a>
+
+    <a href="https://www.tataaia.com/" target="_blank" class="partner-card">
+        <img src="{{ url_for('static', filename='images/partners/tata-aia.svg') }}" alt="TATA AIA">
+    </a>
+
+    <a href="https://www.tataaig.com/" target="_blank" class="partner-card">
+        <img src="{{ url_for('static', filename='images/partners/tata-aig.svg') }}" alt="TATA AIG">
+    </a>
+
+    <a href="https://uiic.co.in/" target="_blank" class="partner-card">
+        <img src="{{ url_for('static', filename='images/partners/united-india.png') }}" alt="United India">
+    </a>
+
+    <a href="https://www.universalsompo.com/" target="_blank" class="partner-card">
+        <img src="{{ url_for('static', filename='images/partners/universal-sompo.svg') }}" alt="Universal Sompo">
+    </a>
+
+    <!-- ZUNO -->
+    <a href="https://www.hizuno.com/" target="_blank" class="partner-card">
+        <img src="{{ url_for('static', filename='images/partners/zuno.svg') }}" alt="Zuno Insurance">
+    </a>
+
+</div>
+
+</section>
+<style>
+/* ===============================
+   INSURANCE PARTNERS – PREMIUM
+================================ */
+
+.partners-section {
+    padding: 100px 20px;
+    background:
+        radial-gradient(circle at top left, rgba(37,99,235,0.08), transparent 40%),
+        radial-gradient(circle at bottom right, rgba(16,185,129,0.08), transparent 40%),
+        linear-gradient(135deg, #f9fafb 0%, #eef2f7 100%);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Floating glow blobs */
+.partners-section::before,
+.partners-section::after {
+    content: "";
+    position: absolute;
+    width: 320px;
+    height: 320px;
+    filter: blur(60px);
+    z-index: 0;
+}
+
+.partners-section::before {
+    top: -120px;
+    left: -120px;
+    background: rgba(59,130,246,0.35);
+}
+
+.partners-section::after {
+    bottom: -120px;
+    right: -120px;
+    background: rgba(16,185,129,0.35);
+}
+
+/* ===============================
+   HEADING
+================================ */
+
+.partners-section h2 {
+    position: relative;
+    z-index: 1;
+    font-size: 38px;
+    font-weight: 900;
+    letter-spacing: -0.5px;
+    color: #0f172a;
+    margin-bottom: 10px;
+}
+
+.partners-section h2 span {
+    background: linear-gradient(90deg, #2563eb, #22c55e);
+    background-clip: text;           /* Standard */
+    -webkit-background-clip: text;   /* Chrome / Safari */
+    color: transparent;
+}
+
+
+.partners-section p {
+    position: relative;
+    z-index: 1;
+    max-width: 720px;
+    margin: 0 auto 50px;
+    font-size: 17px;
+    line-height: 1.7;
+    color: #475569;
+}
+
+/* ===============================
+   GRID
+================================ */
+
+.partners-grid {
+    position: relative;
+    z-index: 1;
+    max-width: 1300px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 22px;
+}
+
+/* ===============================
+   CARD
+================================ */
+
+.partner-link {
+    text-decoration: none;
+}
+
+.partner-card {
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(10px);
+    border-radius: 14px;
+    padding: 22px 16px;
+    min-height: 75px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid rgba(0,0,0,0.06);
+    box-shadow:
+        0 10px 25px rgba(0,0,0,0.08),
+        inset 0 0 0 1px rgba(255,255,255,0.6);
+
+    transition: all 0.35s cubic-bezier(.4,0,.2,1);
+}
+
+/* Logo */
+.partner-card img {
+    max-width: 130px;
+    max-height: 45px;
+    object-fit: contain;
+    filter: grayscale(100%) brightness(0.9);
+    transition: all 0.35s ease;
+}
+
+/* ===============================
+   HOVER MAGIC ✨
+================================ */
+
+.partner-card:hover {
+    transform: translateY(-10px) scale(1.05);
+    border-color: rgba(37,99,235,0.5);
+    box-shadow:
+        0 25px 50px rgba(37,99,235,0.25),
+        inset 0 0 0 1px rgba(255,255,255,0.7);
+    background: #ffffff;
+}
+
+.partner-card:hover img {
+    filter: grayscale(0%) brightness(1);
+}
+
+/* ===============================
+   MOBILE TWEAKS
+================================ */
+
+@media (max-width: 640px) {
+    .partners-section h2 {
+        font-size: 28px;
+    }
+
+    .partners-section p {
+        font-size: 15px;
+    }
+
+    .partner-card {
+        padding: 18px 12px;
+    }
+}
+</style>
+
+
+
+<footer class="site-footer">
+
+    <div class="footer-container">
+
+        <!-- COMPANY INFO -->
+        <div class="footer-col">
+            <h4>
+                <i class="fa-solid fa-location-dot"></i>
+                Crest Insurance Brokers Pvt. Ltd.
+            </h4>
+
+            <p>
+                1st Floor, Plot-65, Landmark House<br>
+                Sector-44, Gurugram – 122003
+            </p>
+
+            <p>🌐 www.crestinsure.com</p>
+            <p>📞 1800 205 430</p>
+            <p>✉️ pospsupport@crestinsure.com</p>
+
+            <h5>Follow Us</h5>
+            <div class="social-icons">
+                <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+            </div>
+        </div>
+
+        <!-- INSURANCE POSP -->
+        <div class="footer-col">
+            <h4>Insurance POSP</h4>
+            <a href="#">Who Can Become a POSP Agent?</a>
+            <a href="#">Benefits of Becoming POSP Agent</a>
+            <a href="#">Step-by-Step Registration Process</a>
+
+            <h4 class="mt">Quick Links</h4>
+            <a href="#">Blog</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Use</a>
+        </div>
+
+        <!-- TRAINING -->
+        <div class="footer-col">
+            <h4>POSP Training & Certification</h4>
+            <a href="#">Training Modules</a>
+            <a href="#">Certification Process</a>
+            <a href="#">POSP Agent Exam</a>
+            <a href="#">Learning Resources</a>
+        </div>
+
+        <!-- HOW TO BECOME -->
+        <div class="footer-col">
+            <h4>How to Become an Agent</h4>
+            <a href="#">Become Motor Insurance Agent</a>
+            <a href="#">Become LIC Insurance Agent</a>
+            <a href="#">Become Health Insurance Agent</a>
+            <a href="#">Become Life Insurance Agent</a>
+            <a href="#">Become Travel Insurance Agent</a>
+            <a href="#">Become Bajaj Insurance Agent</a>
+        </div>
+
+    </div>
+
+    <!-- LEGAL BAR -->
+    <div class="footer-legal">
+        <p>
+            Crest Insurance Brokers Pvt. Ltd. | IRDAI Direct Insurance Broker (Life & General) |
+            License No: 841 | Valid Till: 02/08/2028 (Renewable) |
+            Reg. Office - 1st Floor, Plot-65, Landmark House, Sector-44, Gurugram – 122003 | CIN NO. - U66000HR2021PTC098960 | Reg. No. -IRDAI/BD/895/2025 | IBAI Membership No.-13841 Standard T&C Apply* For more details on risk factors, terms, and conditions, please read the sales brochure carefully before concluding a sale.Visitors are hereby informed that their information submitted on the website may be shared with insurers. Product information is authentic and solely based on the information received from the insurers.
+        </p>
+        <p>
+            © 2025–2028 Crest Insurance Brokers Pvt. Ltd. All Rights Reserved
+        </p>
+    </div>
+
+</footer>
+<style>.site-footer {
+    background: linear-gradient(135deg, #0b1020, #020617);
+    color: #cbd5f5;
+    padding: 60px 0 0;
+    font-size: 14px;
+}
+
+.footer-container {
+    max-width: 1300px;
+    margin: auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+}
+
+/* COLUMN */
+.footer-col h4 {
+    color: #ffffff;
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+
+.footer-col h5 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    color: #ffffff;
+}
+
+.footer-col p {
+    margin-bottom: 8px;
+    line-height: 1.6;
+}
+
+.footer-col a {
+    display: block;
+    color: #cbd5f5;
+    text-decoration: none;
+    margin-bottom: 8px;
+    transition: 0.3s;
+}
+
+.footer-col a:hover {
+    color: #60a5fa;
+    padding-left: 4px;
+}
+
+.mt {
+    margin-top: 25px;
+}
+
+/* SOCIAL */
+.social-icons {
+    display: flex;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.social-icons a {
+    width: 36px;
+    height: 36px;
+    background: #1e293b;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    transition: 0.3s;
+}
+
+.social-icons a:hover {
+    background: #2563eb;
+}
+
+/* LEGAL */
+.footer-legal {
+    margin-top: 50px;
+    border-top: 1px solid #1e293b;
+    padding: 15px 20px;
+    text-align: center;
+    font-size: 12px;
+    color: #94a3b8;
+}
+</style>
+</body>
+</html>
+
+
+
+
+

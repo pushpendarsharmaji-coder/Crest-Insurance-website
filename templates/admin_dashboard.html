@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Dashboard</title>
+
+    <!-- Bootstrap Icons -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+        rel="stylesheet"
+    >
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background: #f4f6f9;
+        }
+
+        /* SIDEBAR */
+
+        .sidebar {
+            width: 240px;
+            height: 100vh;
+            background: #1e293b;
+            position: fixed;
+            left: 0;
+            top: 0;
+            padding: 20px 15px;
+        }
+
+        .sidebar h2 {
+            color: white;
+            margin: 0 0 30px 10px;
+            font-size: 22px;
+        }
+
+        .sidebar a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            color: white;
+            padding: 12px 15px;
+            text-decoration: none;
+
+            margin-top: 8px;
+            border-radius: 6px;
+
+            transition: 0.2s;
+        }
+
+        .sidebar a:hover {
+            background: #334155;
+        }
+
+        .sidebar a i {
+            font-size: 18px;
+        }
+
+        /* CHANGE PASSWORD */
+
+        .sidebar .change-password {
+            color: #fbbf24;
+        }
+
+        .sidebar .change-password:hover {
+            background: #334155;
+        }
+
+        /* LOGOUT */
+
+        .sidebar .logout {
+            color: #f87171;
+        }
+
+        .sidebar .logout:hover {
+            background: #334155;
+        }
+
+        /* CONTENT */
+
+        .content {
+            margin-left: 240px;
+            padding: 30px;
+        }
+
+        .content h1 {
+            margin-top: 0;
+            color: #1e293b;
+        }
+
+        /* TABLE */
+
+        .table-container {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background: #0f172a;
+            color: white;
+        }
+
+        tr:hover {
+            background: #f1f5f9;
+        }
+
+        /* VIEW BUTTON */
+
+        .view-btn {
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .view-btn:hover {
+            text-decoration: underline;
+        }
+
+        /* EMPTY DATA */
+
+        .no-data {
+            text-align: center;
+            padding: 30px;
+            color: #64748b;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 768px) {
+
+            .sidebar {
+                width: 200px;
+            }
+
+            .content {
+                margin-left: 200px;
+                padding: 20px;
+            }
+
+            table {
+                font-size: 13px;
+            }
+
+            th,
+            td {
+                padding: 8px;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+
+<!-- ================= SIDEBAR ================= -->
+
+<div class="sidebar">
+
+    <h2>
+        <i class="bi bi-shield-lock"></i>
+        Admin Panel
+    </h2>
+
+
+    <!-- Dashboard -->
+
+    <a href="/admin_dashboard">
+
+        <i class="bi bi-speedometer2"></i>
+
+        <span>Dashboard</span>
+
+    </a>
+
+
+    <!-- Users -->
+
+    <a href="/admin_users">
+
+        <i class="bi bi-people"></i>
+
+        <span>Users</span>
+
+    </a>
+
+
+    <!-- Reports -->
+
+    <a href="/admin/reports">
+
+        <i class="bi bi-bar-chart"></i>
+
+        <span>Reports</span>
+
+    </a>
+
+
+    <!-- Change Password -->
+
+    <a
+        href="{{ url_for('change_admin_password') }}"
+        class="change-password"
+    >
+
+        <i class="bi bi-key"></i>
+
+        <span>Change Password</span>
+
+    </a>
+
+
+    <!-- Logout -->
+
+    <a
+        href="/admin/logout"
+        class="logout"
+    >
+
+        <i class="bi bi-box-arrow-right"></i>
+
+        <span>Logout</span>
+
+    </a>
+
+</div>
+
+
+
+<!-- ================= MAIN CONTENT ================= -->
+
+<div class="content">
+
+    <h1>
+        <i class="bi bi-people"></i>
+        Registered Users
+    </h1>
+
+
+    <div class="table-container">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>ID</th>
+
+                    <th>Email</th>
+
+                    <th>Mobile</th>
+
+                    <th>PAN</th>
+
+                    <th>Created</th>
+
+                    <th>Action</th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                {% for user in users %}
+
+                <tr>
+
+                    <td>
+                        {{ user[0] }}
+                    </td>
+
+                    <td>
+                        {{ user[1] }}
+                    </td>
+
+                    <td>
+                        {{ user[2] }}
+                    </td>
+
+                    <td>
+                        {{ user[3] }}
+                    </td>
+
+                    <td>
+                        {{ user[5] }}
+                    </td>
+
+                    <td>
+
+                        <a
+                            href="/admin/user/{{ user[0] }}"
+                            class="view-btn"
+                        >
+                            <i class="bi bi-eye"></i>
+                            View
+                        </a>
+
+                    </td>
+
+                </tr>
+
+                {% else %}
+
+                <tr>
+
+                    <td
+                        colspan="6"
+                        class="no-data"
+                    >
+                        No registered users found.
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+
+</body>
+
+</html>
